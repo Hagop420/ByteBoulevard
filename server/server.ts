@@ -29,9 +29,53 @@ app.use(express.static(reactStaticDir));
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello, World!' });
-});
+
+// GETTING THE Foods table from SQL schema
+
+app.get('/api/Food' , async(req , res , next) => {
+
+ try{
+   // getting the data from the foods table
+  const foodsSql = `
+    SELECT * from "Food"
+      where "foodId" = 1
+      or "foodId" = 2
+      or "foodId" = 3
+
+  `
+
+
+  // Querying into the Foods table
+  const queryState = await db.query(foodsSql);
+
+    const queryResult = queryState.rows;
+    // Calling it with json
+
+    res.status(200).json(queryResult);
+
+ }catch(err){
+  next(err)
+ }
+
+})
+
+
+// app.post('/api/Foods' , async(req , res) => {
+//   // Using destructuring to get the item's in my Final project Menu
+//   // burger's menu
+//   const {DoubleDouble , CheeseBurger , Hamburger } = req.body
+//   // shakes menu
+//   const {ChocolateShake , StrawberryShake , VanillaShake} = req.body
+//   // soft drink's menu
+//   const {}
+
+
+// })
+
+
+
+
+
 
 /*
  * Middleware that handles paths that aren't handled by static middleware
@@ -39,6 +83,9 @@ app.get('/api/hello', (req, res) => {
  * This must be the _last_ non-error middleware installed, after all the
  * get/post/put/etc. route handlers and just before errorMiddleware.
  */
+
+
+
 app.use(defaultMiddleware(reactStaticDir));
 
 app.use(errorMiddleware);

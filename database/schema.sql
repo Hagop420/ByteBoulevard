@@ -11,6 +11,7 @@ CREATE TABLE "Food" (
   "foodId" serial PRIMARY KEY,
   "name" text,
   "description" text,
+  "imageUrl" text,
   "price" int,
   "category" text
 );
