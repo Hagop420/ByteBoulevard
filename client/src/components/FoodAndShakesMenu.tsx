@@ -1,45 +1,42 @@
 // FILE IMPORT'S
-import { useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
 import { FoodMenu } from '../lib/api';
 import '../css/tailwind_linking.css'
+import '../css/in_n_out_wall.css'
+import '../css/searchGlass.css'
+
+
+type Food ={
+  currFood: FoodMenu[]
+}
+
+
+export function FoodAndMilkShakesMenu({currFood}: Food){
 
 
 
 
 
-export function FoodAndMilkShakesMenu(){
-  const [currFood , setCurrFood] = useState<FoodMenu[]>()
-
-    const [error, setError] = useState<unknown>();
 
 
 
 
-  useEffect(() => {
-    async function loadFoodMenuItems(){
-      try{
-        const burgerMenuItems = await fetch('/api/Food')
-        if (!burgerMenuItems.ok) throw new Error(`Fetch Error: ${burgerMenuItems.status}`);
-        const menuFoodItems = await burgerMenuItems.json()
 
-        setCurrFood(menuFoodItems)
-      }catch(err){
-        setError(err)
-      }
-    }
-    loadFoodMenuItems()
-
-  } , [])
 
 
 return(
       <>
         <div className='flex justify-between'>
+
     {currFood?.map((burgs , index) => (
-    <img key={index} src={burgs.imageUrl} alt={burgs.name}/>
+
+      <div key={index}  className='mt-20'>
+    <img src={burgs.imageUrl} alt={burgs.name}/>
+          <span>{burgs.name}</span>
+        </div>
     ))}
         </div>
+
+
 
       </>
 
@@ -47,4 +44,42 @@ return(
 )
 
 
+}
+
+type ShakesProp = {
+    currShakes: FoodMenu[]
+}
+
+
+export function LoadShakeMenuItems({currShakes}: ShakesProp){
+
+
+  return(
+    <>
+
+            <div className='flex justify-between'>
+
+    {currShakes?.map((shakes , index) => (
+
+      <div key={index} className=''>
+    <img src={shakes.imageUrl} alt={shakes.name}/>
+          <span>{shakes.name}</span>
+        </div>
+    ))}
+        </div>
+
+
+      </>
+
+
+)
+
+}
+
+
+
+export function FilteringMenuItemsInput(){
+  return(
+    <input type="text" className='search' />
+  )
 }

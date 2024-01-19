@@ -1,0 +1,8 @@
+/* mag glass */
+
+.search {
+  padding-left: 20px;
+  background: url('../svg/search-solid.svg') no-repeat 5px;
+  background-size: 16px;
+  margin: 10px;
+}

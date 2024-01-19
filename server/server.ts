@@ -38,9 +38,7 @@ app.get('/api/Food' , async(req , res , next) => {
    // getting the data from the foods table
   const foodsSql = `
     SELECT * from "Food"
-      where "foodId" = 1
-      or "foodId" = 2
-      or "foodId" = 3
+      where "category" = 'meal'
 
   `
 
@@ -57,6 +55,51 @@ app.get('/api/Food' , async(req , res , next) => {
   next(err)
  }
 
+})
+
+app.get('/api/Shakes' , async(req , res , next) => {
+
+   try{
+   // getting the data from the foods table
+  const shakesSql = `
+    SELECT * from "Food"
+      where "category" = 'Creamy Delights'
+
+  `
+
+
+  // Querying into the Foods table
+  const queryState = await db.query(shakesSql);
+
+    const queryResult = queryState.rows;
+    // Calling it with json
+
+    res.status(200).json(queryResult);
+
+ }catch(err){
+  next(err)
+ }
+})
+
+
+
+// Express request allowing you to get
+// the entire menu item's the burgers and the shakes and filter thru them
+
+app.get('/api/Food' , async(req , res) => {
+  const allMenuItemsSql = `
+      SELECT * from "Food"
+      where "category" = 'Creamy Delights'
+      or "category" = 'meal'
+  `
+
+   // Querying into the Foods table
+  const queryState = await db.query(allMenuItemsSql);
+
+    const queryResult = queryState.rows;
+    // Calling it with json
+
+    res.status(200).json(queryResult);
 })
 
 
