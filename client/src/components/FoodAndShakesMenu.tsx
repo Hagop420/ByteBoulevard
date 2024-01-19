@@ -25,7 +25,7 @@ return(
           <span className='bg-white text-black p-1 pr-1 pl-1 relative top-4'><span className='hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer'>➖</span> {burgs.name} <span className='hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer'>➕</span></span>
         </div>
     ))}
-    {currFood.length === 0 && <p>No Matches!</p>}
+    {/* {currFood.length === 0 && <p>No Matches!</p>} */}
         </div>
 
 
@@ -93,7 +93,7 @@ export function LoadShakeMenuItems({currShakes}: ShakesProp){
           <span className='bg-white text-black p-1 pr-1 pl-1 relative top-4'><span className='hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer'>➖</span> {shakes.name} <span className='hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer'>➕</span></span>
         </div>
     ))}
-    {currShakes.length === 0 && <p>No Matches!</p>}
+    {/* {currShakes.length === 0 && <p>No Matches!</p>} */}
         </div>
 
 
@@ -119,6 +119,21 @@ export function FilteringMenuItemsInput({inputSearch}: InputSearchProp){
       <input
       className='search form-control placeholder:italic placeholder:text-slate-400 placeholder:relative placeholder:left-6 placeholder:text-red-700	inputTop'
       placeholder='Enter item...'/>
+    </div>
+
+
+  )
+}
+
+
+export function NextPageButton(){
+   return(
+    <div className="flex justify-end m-5 md:m-8">
+      <button>
+          <span className=''>
+            Next page ➜
+          </span>
+    </button>
     </div>
 
 
