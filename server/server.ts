@@ -57,6 +57,36 @@ app.get('/api/Food' , async(req , res , next) => {
 
 })
 
+
+// getting the french fries
+app.get('/api/Fries' , async(req , res , next) => {
+
+ try{
+   // getting the data from the foods table
+  const sidesSql = `
+    SELECT * from "Food"
+      where "category" = 'sides'
+
+  `
+
+
+  // Querying into the Foods table
+  const queryState = await db.query(sidesSql);
+
+    const queryResult = queryState.rows;
+    // Calling it with json
+
+    res.status(200).json(queryResult);
+
+ }catch(err){
+  next(err)
+ }
+
+})
+
+
+
+
 app.get('/api/Shakes' , async(req , res , next) => {
 
    try{
@@ -86,7 +116,7 @@ app.get('/api/Shakes' , async(req , res , next) => {
 // Express request allowing you to get
 // the entire menu item's the burgers and the shakes and filter thru them
 
-app.get('/api/Food' , async(req , res) => {
+app.get('/api/allMenuItems' , async(req , res) => {
   const allMenuItemsSql = `
       SELECT * from "Food"
       where "category" = 'Creamy Delights'

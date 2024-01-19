@@ -1,8 +1,21 @@
 /* mag glass */
 
 .search {
-  padding-left: 20px;
-  background: url('../svg/search-solid.svg') no-repeat 5px;
-  background-size: 16px;
+  background: url('../svg/search-solid.svg') no-repeat 7px;
+  background-size: 15.7px;
   margin: 10px;
+  margin-right:10px;
+  background-color:azure;
+  border-radius:.5rem;
+  padding:5px
 }
+
+.inputTop {
+  border-radius: 0.3rem;
+  border: 0;
+  padding: 5px;
+  color:red;
+    text-indent: 24px;
+}
+
+input::placeholder{display: none !important;}
