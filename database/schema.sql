@@ -12,6 +12,7 @@ CREATE TABLE "Food" (
   "name" text,
   "description" text,
   "imageUrl" text,
+  "background" text,
   "price" int,
   "category" text
 );

@@ -59,8 +59,12 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 
+  important: true,
   theme: {
     extend: {
+      rotate: {
+        '-45': '-45deg', // Add the -45 degree rotation
+      },
       boxShadow: {
         yellow: '0.35px 2.35px 1rem rgba(255, 255, 0, 0.25)',
         blue: '0 4px 6px -1px rgba(0, 0, 255, 0.1), 0 2px 4px -1px rgba(0, 0, 255, 0.06)',
