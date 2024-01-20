@@ -95,6 +95,14 @@ export default {
         out: 'ease-out', // Custom timing function for "out" transition
         'in-out': 'ease-in-out', // Custom timing function for "in-out" transition
       },
+      backgroundSize: {
+        auto: 'auto',
+        cover: 'cover',
+        contain: 'contain',
+      },
+      backgroundRepeat: {
+        'no-repeat': 'no-repeat', // Add no-repeat for background images
+      },
     },
   },
   plugins: [],

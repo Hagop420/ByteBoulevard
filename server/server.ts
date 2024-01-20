@@ -138,6 +138,23 @@ app.get('/api/Food/:foodId', async (req, res, next) => {
   }
 });
 
+// GET request that gets all of my drinks
+
+app.get('/api/SoftDrinks', async (req, res) => {
+  const allMenuItemsSql = `
+      SELECT * from "Food"
+      where "category" = 'Soft drink'
+  `;
+
+  // Querying into the Foods table
+  const queryState = await db.query(allMenuItemsSql);
+
+  const queryResult = queryState.rows;
+  // Calling it with json
+
+  res.status(200).json(queryResult);
+});
+
 /*
  * Middleware that handles paths that aren't handled by static middleware
  * or API route handlers.

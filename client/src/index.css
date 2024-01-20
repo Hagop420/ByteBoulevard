@@ -13,6 +13,10 @@
   max-width: 1280px;
 }
 
+* {
+  margin: 0;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

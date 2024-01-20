@@ -3,6 +3,7 @@ export type FoodMenu = {
   name: string;
   description: string;
   background: string;
+  notice: string;
   imageUrl: string;
   price: number;
   category: string;

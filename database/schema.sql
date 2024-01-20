@@ -10,10 +10,11 @@ create schema "public";
 CREATE TABLE "Food" (
   "foodId" serial PRIMARY KEY,
   "name" text,
-  "description" text,
   "imageUrl" text,
   "background" text,
   "price" int,
+  "description" text,
+  "notice" text,
   "category" text
 );
 

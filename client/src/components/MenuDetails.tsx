@@ -4,6 +4,7 @@ import { foodMenuItemsId, type FoodMenu } from '../lib/api';
 import { toDollars } from '../lib/toDollars';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../css/menuDetails.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 export function MenuDetails() {
   // TODO: Retrieve foodId from the route
@@ -35,7 +36,12 @@ export function MenuDetails() {
   }, [foodId, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-16 h-16">
+        <i className="fas fa-circle text-blue-500 text-3xl animate-spin"></i>
+        <p>Loading...</p>
+      </div>
+    );
   }
   if (!currMenuItem || error)
     return (
@@ -45,34 +51,43 @@ export function MenuDetails() {
       </div>
     );
 
-  const { name, description, imageUrl, background, price, category } =
+  const { name, description, imageUrl, background, notice, price, category } =
     currMenuItem;
 
   const bkg = background;
   return (
     <>
       <div
-        className="flex flex-col justify-start wrapped"
-        style={{ backgroundImage: `url(${bkg})` }}>
+        className="flex flex-col justify-start md:p-20"
+        style={{
+          backgroundImage: bkg,
+          background: `${bkg}`,
+          padding: '100px',
+          objectFit: 'cover',
+          borderRadius: '50%',
+        }}>
         <img
           src={imageUrl}
           alt=""
-          className=" h-20 object-contain transition-transform transform hover:scale-125"
+          className=" h-72 object-contain transition-transform transform hover:scale-125"
         />
+        <div className="flex justify-end">
+          <h2 className="text-2xl -rotate-45">{category}</h2>
+        </div>
         <div className="m-9">
           <h2 className="text-4xl m-5">{name}</h2>
-          <p>Describtion: {description}</p>
+          <p>{description}</p>
+          <p className="font-bold m-3 text-lg">{notice}</p>
           <span className="m-9">
             <p>{toDollars(price)}</p>
           </span>
         </div>
-        <Link to="/" className="flex m-10">
-          <div>
-            <button>Back to menu</button>
-          </div>
+        <Link to="/" className="m-auto md:flex md:relative md:float-left">
+          <button className="font-bold text-white bg-black rounded-md transition-transform transform hover:scale-105 hover:bg-amber-600 focus:outline-none focus:shadow-outline-blue active:bg-slate-300">
+            ↻ Back to Menu
+          </button>
         </Link>
       </div>
-      <h2 className="text-6xl -rotate-45 relative right-0">{category}</h2>
     </>
   );
 }
