@@ -26,8 +26,14 @@ export function MenuPageWrap() {
 
   const [menuFilter, setMenuFilter] = useState<FoodMenu[]>([]);
 
-  const matchedFood = currFood.filter((l) =>
-    l.name.toLocaleLowerCase().includes(currInput.toLocaleLowerCase())
+  const matchedFood = currFood.filter((burgers) =>
+    burgers.name.toLocaleLowerCase().includes(currInput.toLocaleLowerCase())
+  );
+  const matchedSides = currFry.filter((fries) =>
+    fries.name.toLocaleLowerCase().includes(currInput.toLocaleLowerCase())
+  );
+  const matchedShake = currShakes.filter((shakes) =>
+    shakes.name.toLocaleLowerCase().includes(currInput.toLocaleLowerCase())
   );
   useEffect(() => {
     async function loadFoodMenuItems() {
@@ -94,6 +100,7 @@ export function MenuPageWrap() {
     }
     gettingBurgersAndShakesMenuItems();
   }, []);
+
   return (
     <div>
       <NextPageButton />
@@ -102,8 +109,8 @@ export function MenuPageWrap() {
       />
 
       <FoodAndMilkShakesMenu currFood={matchedFood} />
-      <LoadFriesItem currFries={currFry} />
-      <LoadShakeMenuItems currShakes={currShakes} />
+      <LoadFriesItem currFries={matchedSides} />
+      <LoadShakeMenuItems currShakes={matchedShake} />
     </div>
   );
 }
