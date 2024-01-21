@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import '../css/tailwind_linking.css';
 import '../css/in_n_out_wall.css';
 import '../css/searchGlass.css';
-import { ChooseDrinks } from './ChooseDrink';
+// import { ChooseDrinks } from './ChooseDrink';
 
 type Food = {
   currFood: FoodMenu[];

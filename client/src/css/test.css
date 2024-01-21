@@ -1,0 +1,32 @@
+.inputTop {
+  margin: 0 !important;
+
+  /* position: relative;
+  bottom: 250px; */
+  border-radius: 0.3rem;
+  border: 0;
+  outline-color: red;
+  padding: 5px;
+  background: black;
+  color: yellow !important;
+}
+
+.select_field_styling {
+  padding: 10px 30px;
+  margin: 0 !important;
+  width: 100%;
+
+  /* appearance: inherit; */
+  transform: translateY(-100%);
+}
+
+option {
+  text-align: left;
+}
+
+.cart {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/3514/3514491.png');
+  background-size: contain;
+
+  /* background-repeat: no-repeat; */
+}

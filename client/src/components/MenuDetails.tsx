@@ -69,7 +69,7 @@ export function MenuDetails() {
         <img
           src={imageUrl}
           alt=""
-          className=" h-72 object-contain transition-transform transform hover:scale-125"
+          className=" h-32 object-contain transition-transform transform hover:scale-125"
         />
         <div className="flex justify-end">
           <h2 className="text-2xl -rotate-45">{category}</h2>
