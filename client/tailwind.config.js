@@ -64,6 +64,10 @@ export default {
     extend: {
       rotate: {
         '-45': '-45deg', // Add the -45 degree rotation
+        0: '0deg', // Add the 0 degree rotation
+        45: '45deg', // Add the 45 degree rotation
+        // Add more degree values as needed
+        360: '360deg', // Add the 360 degree rotation
       },
       boxShadow: {
         yellow: '0.35px 2.35px 1rem rgba(255, 255, 0, 0.25)',

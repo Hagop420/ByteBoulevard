@@ -37,8 +37,13 @@ export function ChooseDrinks() {
       </div>
     );
 
+  // const { name, description, imageUrl, background, notice, price, category } =
+  //   currDrinkItem;
+
+  // const bkg = background;
+
   return (
-    <>
+    <div style={{ background: 'limegreen', padding: '230px' }}>
       <Link to="/">
         <div className="flex relative bottom-20">
           <span className="relative flex h-3 w-3">
@@ -77,7 +82,7 @@ export function ChooseDrinks() {
             ➖
           </span>{' '}
           <img src={currSelectValue} alt="" className="h-25" />
-          <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-800 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
+          <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➕
           </span>
         </div>
@@ -92,7 +97,10 @@ export function ChooseDrinks() {
       )} */}
 
       <div className="flex flex-end justify-end items-start">
-        <button className="bg-white text-black">View Cart</button>
+        <button className="bg-white text-black">
+          View Cart
+          <span className="relative left-1 top-1">🛒</span>
+        </button>
 
         {/* <img
           src="https://cdn-icons-png.flaticon.com/512/3514/3514491.png"
@@ -101,6 +109,6 @@ export function ChooseDrinks() {
         /> */}
       </div>
       {/* {=== currDrink ? <img src = {}> : <img src = 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg' alt='drink_menu_placeholder.'>} */}
-    </>
+    </div>
   );
 }
