@@ -3,6 +3,7 @@ import { fetchDrinks, foodMenuItemsId, type FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import { useCart } from './useCart';
 
 // CONTEXT
 
@@ -12,6 +13,8 @@ export const Context = createContext({
 });
 
 export function ChooseDrinks() {
+  const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
+
   const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
 
   // const [currSelectValue, setCurrSelectedValue] = useState<any>();
@@ -39,6 +42,19 @@ export function ChooseDrinks() {
       (item) => item.foodId === +e.target.value
     );
     setCurrDrinkItem(namesOfDrink);
+  }
+
+  function handleAddingItemsToCart() {
+    async function addingCartItems() {
+      try {
+        const addCartItems = await addingItemsToCart();
+
+        JSON.stringify(addCartItems);
+      } catch (err) {
+        alert('err');
+      }
+    }
+    addingCartItems();
   }
 
   // unknown error handling
@@ -100,7 +116,9 @@ export function ChooseDrinks() {
 
       {currDrinkItem ? (
         <div className="flex justify-around items-center m-2 h-30">
-          <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
+          <span
+            onClick={removingItemsFromCart}
+            className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➖
           </span>{' '}
           <div>
@@ -112,7 +130,9 @@ export function ChooseDrinks() {
             />
             <p style={{ color: bkg, fontSize: '40px' }}>{name}</p>
           </div>
-          <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
+          <span
+            onClick={handleAddingItemsToCart}
+            className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➕
           </span>
         </div>
@@ -125,12 +145,12 @@ export function ChooseDrinks() {
       )}
 
       <Link to="/order_conformation">
-        <div className="flex flex-end justify-end mt-20 items-start">
+        <div className="flex flex-end justify-end mt-20 items-center">
           <button className="bg-white text-black">
             View Cart
             <span className="relative bottom-1">🛒</span>
-            <div className="bg-black relative top-1 right-1 rad flex m-auto justify-center float-end text-white text-center">
-              0
+            <div className="bg-black relative top-1 right-1 rad flex m-auto justify-center items-center float-end text-white text-center">
+              {cartItems.length}
             </div>
           </button>
         </div>

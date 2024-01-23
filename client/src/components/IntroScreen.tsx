@@ -60,7 +60,7 @@ export const IntroScreen = () => {
         <h1 className="capitalize text-black">byte boulevard</h1>
 
         <div className="flex items-center justify-center m-2">
-          <Link to="/">
+          <Link to="/menu">
             <button className="hover:opacity-85 m-4">Browse menu</button>
           </Link>
           <a
