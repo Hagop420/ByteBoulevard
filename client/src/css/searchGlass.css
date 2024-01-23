@@ -35,3 +35,12 @@ input::placeholder {
 [data-theme='night'] .DM {
   background-color: #fff !important;
 }
+
+[data-theme='night'] .HME {
+  color: #fff !important;
+}
+
+[data-theme='night'] .WHITE_ANIM {
+  background: yellow !important;
+  border-radius: 50%;
+}

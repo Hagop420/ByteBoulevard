@@ -1,0 +1,13 @@
+/* [data-theme='night'] h1 {
+  color: #fff !important;
+} */
+
+.wrapper {
+  background: grey;
+  padding: 200px;
+  border-radius: 1rem;
+}
+
+[data-theme='night'] .wrapper {
+  background: rgb(223, 217, 217) !important;
+}
