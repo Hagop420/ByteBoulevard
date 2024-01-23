@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { fetchDrinks, foodMenuItemsId, type FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 export function ChooseDrinks() {
-  const [currDrinkItem, setCurrcurrDrinkItem] = useState<FoodMenu>();
+  const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
 
-  const [currSelectValue, setCurrSelectedValue] = useState<any>();
+  // const [currSelectValue, setCurrSelectedValue] = useState<any>();
 
   const [currDrink, setCurrDrink] = useState<FoodMenu[]>();
   const [error, setError] = useState<unknown>();
@@ -27,6 +27,13 @@ export function ChooseDrinks() {
     loadFoodMenuDetails();
   }, []);
 
+  function handleSelection(e: ChangeEvent<HTMLSelectElement>) {
+    const namesOfDrink = currDrink?.find(
+      (item) => item.foodId === +e.target.value
+    );
+    setCurrDrinkItem(namesOfDrink);
+  }
+
   // unknown error handling
 
   if (!currDrink || error)
@@ -42,8 +49,16 @@ export function ChooseDrinks() {
       </div>
     );
 
-  const { name, description, imageUrl, background, notice, price, category } =
-    currDrinkItem ?? {};
+  const {
+    foodId,
+    name,
+    description,
+    imageUrl,
+    background,
+    notice,
+    price,
+    category,
+  } = currDrinkItem ?? {};
   const bkg = background;
 
   return (
@@ -61,21 +76,21 @@ export function ChooseDrinks() {
       <select
         name="drinks"
         id="drinks"
-        value={currSelectValue}
+        value={foodId}
         defaultValue={'drinks_select'}
-        onChange={(e) => setCurrSelectedValue(e.target.value)}
+        onChange={handleSelection}
         className="select_field_styling rounded">
         <option value="drinks_select" disabled>
           Choose a drink
         </option>
         {currDrink.map((drinks, index) => (
-          <option key={index} value={drinks.imageUrl}>
+          <option key={index} value={drinks.foodId}>
             {drinks.name}
           </option>
         ))}
       </select>
 
-      {currSelectValue ? (
+      {currDrinkItem ? (
         <div className="flex justify-around items-center m-2 h-30">
           <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➖
@@ -83,18 +98,11 @@ export function ChooseDrinks() {
           <div>
             <img
               style={{ background: bkg }}
-              src={currSelectValue}
+              src={imageUrl}
               alt=""
               className="h-25"
             />
-            <p>
-              {currSelectValue
-                .split('/')
-                .pop()
-                .replace('.png', '')
-                .replace(/([A-Z])/g, ' $1')
-                .replace(/^./, (str) => str.toUpperCase())}
-            </p>
+            <p>{name}</p>
           </div>
           <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➕

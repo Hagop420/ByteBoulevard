@@ -9,11 +9,13 @@ export type FoodMenu = {
   category: string;
 };
 
+//  IMPORTANT FOR CONFIRMATION PAGE
 export async function fetchFoodMenuItems(): Promise<FoodMenu[]> {
   const res = await fetch('/api/Food');
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);
   return await res.json();
 }
+//
 
 export async function fetchShakeMenuItems(): Promise<FoodMenu[]> {
   const res = await fetch('/api/Shakes');
