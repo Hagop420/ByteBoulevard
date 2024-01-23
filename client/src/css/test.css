@@ -1,19 +1,7 @@
-.inputTop {
-  margin: 0 !important;
-
-  /* position: relative;
-  bottom: 250px; */
-  border-radius: 0.3rem;
-  border: 0;
-  outline-color: red;
-  padding: 5px;
-  background: black;
-  color: yellow !important;
-}
-
 .select_field_styling {
   padding: 10px 12px;
-  margin: 0 !important;
+
+  /* margin: 0 !important; */
   width: 100%;
   cursor: pointer;
 
@@ -32,4 +20,14 @@ option {
   font-size: 14px;
   height: 22px;
   border-radius: 50%;
+}
+
+[data-theme='night'] .select_field_styling {
+  background-color: rgb(201, 197, 197);
+  color: #000;
+  font-weight: bold;
+}
+
+[data-theme='night'] .DARK {
+  color: #000;
 }

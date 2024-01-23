@@ -1,8 +1,15 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, createContext } from 'react';
 import { fetchDrinks, foodMenuItemsId, type FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+
+// CONTEXT
+
+export const Context = createContext({
+  quantity: 0,
+  // setQuantity: (): number => 0,
+});
 
 export function ChooseDrinks() {
   const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
@@ -60,16 +67,17 @@ export function ChooseDrinks() {
     category,
   } = currDrinkItem ?? {};
   const bkg = background;
+  const clr = bkg;
 
   return (
     <>
       <Link to="/">
-        <div className="flex relative bottom-20">
+        <div className="flex justify-start">
           <span className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75 hover:animation-none"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-black"></span>
           </span>
-          <button className="bg-zinc-300">↺ Previous Page</button>
+          <button className="bg-zinc-300 DARK">↺ Previous Page</button>
         </div>
       </Link>
       {/* // CHOOSING DRINK'S SELECT FORM */}
@@ -79,7 +87,7 @@ export function ChooseDrinks() {
         value={foodId}
         defaultValue={'drinks_select'}
         onChange={handleSelection}
-        className="select_field_styling rounded">
+        className="select_field_styling rounded mt-20">
         <option value="drinks_select" disabled>
           Choose a drink
         </option>
@@ -97,12 +105,12 @@ export function ChooseDrinks() {
           </span>{' '}
           <div>
             <img
-              style={{ background: bkg }}
+              style={{ background: bkg, borderRadius: '10px', margin: '20px' }}
               src={imageUrl}
               alt=""
               className="h-25"
             />
-            <p>{name}</p>
+            <p style={{ color: bkg, fontSize: '40px' }}>{name}</p>
           </div>
           <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➕

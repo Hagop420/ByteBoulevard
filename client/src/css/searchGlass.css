@@ -4,18 +4,34 @@
   background: url('../svg/search-solid.svg') no-repeat 7px;
   background-size: 15.7px;
   margin: 10px;
-  margin-right:10px;
-  background-color:azure;
-  border-radius:.5rem;
-  padding:5px
+  margin-right: 10px;
+  background-color: azure;
+  border-radius: 0.5rem;
+  padding: 5px;
 }
 
 .inputTop {
   border-radius: 0.3rem;
   border: 0;
+  background-color: hwb(35deg 0% 0%);
   padding: 5px;
-  color:red;
-    text-indent: 24px;
+  color: black;
+  text-indent: 24px;
 }
 
-input::placeholder{display: none !important;}
+input::placeholder {
+  color: #fff !important;
+}
+
+[data-theme='night'] .inputTop {
+  background-color: #fff;
+  color: #000;
+}
+
+[data-theme='night'] .night {
+  color: #fff !important;
+}
+
+[data-theme='night'] .DM {
+  background-color: #fff !important;
+}
