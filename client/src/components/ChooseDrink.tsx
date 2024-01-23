@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchDrinks, type FoodMenu } from '../lib/api';
+import { fetchDrinks, foodMenuItemsId, type FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -34,16 +34,20 @@ export function ChooseDrinks() {
       <div>
         Error Loading drinks:{' '}
         {error instanceof Error ? error.message : 'Unknown Error'}
+        <img
+          src="https://emojis.slackmojis.com/emojis/images/1692802704/67622/404.gif?1692802704"
+          alt="Response_404"
+          className="m-10 mx-auto h-50 rounded"
+        />
       </div>
     );
 
-  // const { name, description, imageUrl, background, notice, price, category } =
-  //   currDrinkItem;
-
-  // const bkg = background;
+  const { name, description, imageUrl, background, notice, price, category } =
+    currDrinkItem ?? {};
+  const bkg = background;
 
   return (
-    <div style={{ background: 'limegreen', padding: '230px' }}>
+    <>
       <Link to="/">
         <div className="flex relative bottom-20">
           <span className="relative flex h-3 w-3">
@@ -70,45 +74,51 @@ export function ChooseDrinks() {
           </option>
         ))}
       </select>
-      {(
-        <img
-          src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
-          className="rounded"
-          alt=""
-        />
-      ) && (
+
+      {currSelectValue ? (
         <div className="flex justify-around items-center m-2 h-30">
           <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➖
           </span>{' '}
-          <img src={currSelectValue} alt="" className="h-25" />
+          <div>
+            <img
+              style={{ background: bkg }}
+              src={currSelectValue}
+              alt=""
+              className="h-25"
+            />
+            <p>
+              {currSelectValue
+                .split('/')
+                .pop()
+                .replace('.png', '')
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/^./, (str) => str.toUpperCase())}
+            </p>
+          </div>
           <span className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➕
           </span>
         </div>
-      )}
-
-      {/* {<img src={currSelectValue} alt="" /> ?? (
+      ) : (
         <img
           src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
           className="rounded"
           alt=""
         />
-      )} */}
+      )}
 
-      <div className="flex flex-end justify-end items-start">
-        <button className="bg-white text-black">
-          View Cart
-          <span className="relative left-1 top-1">🛒</span>
-        </button>
-
-        {/* <img
-          src="https://cdn-icons-png.flaticon.com/512/3514/3514491.png"
-          width="350"
-          height="350"
-        /> */}
-      </div>
-      {/* {=== currDrink ? <img src = {}> : <img src = 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg' alt='drink_menu_placeholder.'>} */}
-    </div>
+      <Link to="/order_conformation">
+        <div className="flex flex-end justify-end mt-20 items-start">
+          <button className="bg-white text-black">
+            View Cart
+            <span className="relative bottom-1">🛒</span>
+            <div className="bg-black relative top-1 right-1 rad flex m-auto justify-center float-end text-white text-center">
+              0
+            </div>
+          </button>
+        </div>
+      </Link>
+    </>
   );
 }

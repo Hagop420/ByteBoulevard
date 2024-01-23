@@ -27,6 +27,7 @@ CREATE TABLE "Users" (
 CREATE TABLE "Carts" (
   "userId" int,
   "foodId" int,
+  "quantity" int,
   PRIMARY KEY ("userId", "foodId")
 );
 

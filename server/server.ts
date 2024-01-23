@@ -1,13 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars -- Remove when used */
 import 'dotenv/config';
 import express from 'express';
+import argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
 import pg from 'pg';
 import {
   ClientError,
   defaultMiddleware,
+  authMiddleware,
   errorMiddleware,
 } from './lib/index.js';
 import { FoodMenu } from '.././client/src/lib/api.js';
+
+type User = {
+  userId: number;
+  username: string;
+  hashedPassword: string;
+};
+
+type Cart = {
+  foodId: number;
+  userId: number;
+  quantity: number;
+};
+type Auth = {
+  username: string;
+  password: string;
+};
 
 const connectionString =
   process.env.DATABASE_URL ||
@@ -155,12 +174,181 @@ app.get('/api/SoftDrinks', async (req, res) => {
   res.status(200).json(queryResult);
 });
 
+app.post('/api/auth/sign-up', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(400, 'username and password are required fields');
+    }
+    const hashedPassword = await argon2.hash(password);
+    const sql = `
+      insert into "Users" ("username", "hashedPassword")
+      values ($1, $2)
+      returning *
+    `;
+    const params = [username, hashedPassword];
+    const result = await db.query<User>(sql, params);
+    const [user] = result.rows;
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+const hashKey = process.env.TOKEN_SECRET;
+if (!hashKey) throw new Error('TOKEN_SECRET not found in .env');
+
+app.post('/api/auth/sign-in', async (req, res, next) => {
+  try {
+    const { username, password } = req.body as Partial<Auth>;
+    if (!username || !password) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const sql = `
+    select "userId",
+           "hashedPassword"
+      from "Users"
+     where "username" = $1
+  `;
+    const params = [username];
+    const result = await db.query<User>(sql, params);
+    const [user] = result.rows;
+    if (!user) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const { userId, hashedPassword } = user;
+    if (!(await argon2.verify(hashedPassword, password))) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const payload = { userId, username };
+    const token = jwt.sign(payload, hashKey);
+    res.json({ token, user: payload });
+  } catch (err) {
+    next(err);
+  }
+});
+
 /*
  * Middleware that handles paths that aren't handled by static middleware
  * or API route handlers.
  * This must be the _last_ non-error middleware installed, after all the
  * get/post/put/etc. route handlers and just before errorMiddleware.
  */
+
+// CART ITEMS INCREMENTATION CODE
+
+app.get('/api/Carts', async (req, res) => {
+  const dataCartSql = `SELECT * from "Carts" where userId = $1`;
+  const result = await db.query(dataCartSql);
+  const rows = result.rows;
+  res.json(result);
+});
+
+app.post('/api/Carts/add', authMiddleware, async (req, res, next) => {
+  try {
+    const userIdCartAddSqlData = `
+    INSERT INTO "Carts" ("userId" , "foodId" , "quantity")
+            VALUES ($1 , $2 , $3)
+            RETURNING *
+
+  `;
+
+    const selectCartItems = `
+    SELECT * from "Carts" where "userId" = $1 and "foodId" = $2
+  `;
+
+    const updateCartsSql = `
+      UPDATE "Carts"
+        SET "quantity" = "quantity" + 1
+        where "userId" = $1 and "foodId" = $2
+        RETURNING *
+  `;
+    // Querying into the Foods table
+    const params = [req.user?.userId, req.body.foodId];
+    const callingSelect = await db.query(selectCartItems, params);
+    if (callingSelect.rowCount === 0) {
+      const paramsCall = [req.user?.userId, req.body.foodId, 1];
+      const dataBaseEntry = await db.query(userIdCartAddSqlData, paramsCall);
+      res.json(dataBaseEntry.rows[0]);
+    } else {
+      const paramsCall = [req.user?.userId, req.body.foodId];
+      const dataBaseEntry = await db.query(updateCartsSql, paramsCall);
+      res.json(dataBaseEntry.rows[0]);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
+  try {
+    const userIdCartRemoveSqlData = `
+   UPDATE "Carts"
+        SET "quantity" = "quantity" - 1
+        where "userId" = $1 and "foodId" = $2
+        RETURNING *
+
+  `;
+
+    // DELETE CART ITEMS
+    const deleteCartItem = `
+      DELETE from "Carts"
+      where "userId" = $1 and "foodId" = $2
+        RETURNING *
+    `;
+
+    const selectCartItems = `
+    SELECT * from "Carts" where "userId" = $1 and "foodId" = $2
+  `;
+
+    const params = [req.user?.userId, req.body.foodId];
+    const callingSelect = await db.query(selectCartItems, params);
+
+    const { quantity } = callingSelect.rows[0] ?? {};
+    if (quantity === 1) {
+      const paramsCall = [req.user?.userId, req.body.foodId];
+      const dataBaseEntry = await db.query(deleteCartItem, paramsCall);
+      res.json(dataBaseEntry.rows[0]);
+    } else {
+      const paramsCall = [req.user?.userId, req.body.foodId];
+      const dataBaseEntry = await db.query(userIdCartRemoveSqlData, paramsCall);
+      res.json(dataBaseEntry.rows[0]);
+    }
+
+    //   const userIdCartAddSqlData = `
+    //   INSERT INTO "Carts" ("userId" , "foodId" , "quantity")
+    //           VALUES ($1 , $2 , $3)
+    //           RETURNING *
+
+    // `;
+
+    //   // DELETE CART ITEMS
+    //   const deleteCartItem = `
+    //     DELETE from "Carts"
+    //     SET "quantity" = "quantity" - 1
+    //     where "userId" = $1 and "foodId" = $2
+    //       RETURNING *
+    //   `;
+
+    //   const selectCartItems = `
+    //   SELECT * from "Carts" where "userId" = $1 and "foodId" = $2
+    // `;
+
+    //
+    // Querying into the Foods table
+    // const callingSelect = await db.query(selectCartItems, params);
+    // if (callingSelect.rowCount === 0) {
+    //   const paramsCall = [req.user?.userId, req.body.foodId, 1];
+    //   const dataBaseEntry = await db.query(userIdCartAddSqlData, paramsCall);
+    //   res.json(dataBaseEntry.rows[0]);
+    // } else {
+    //   const paramsCall = [req.user?.userId, req.body.foodId];
+    //   const dataBaseEntry = await db.query(deleteCartItem, paramsCall);
+    //   res.json(dataBaseEntry.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.use(defaultMiddleware(reactStaticDir));
 

@@ -46,8 +46,13 @@ export function MenuDetails() {
   if (!currMenuItem || error)
     return (
       <div>
-        Error Loading Catalog:{' '}
+        Error Loading drinks:{' '}
         {error instanceof Error ? error.message : 'Unknown Error'}
+        <img
+          src="https://emojis.slackmojis.com/emojis/images/1692802704/67622/404.gif?1692802704"
+          alt="Response_404"
+          className="m-10 mx-auto h-50 rounded"
+        />
       </div>
     );
 
@@ -69,7 +74,7 @@ export function MenuDetails() {
         <img
           src={imageUrl}
           alt=""
-          className=" h-32 object-contain transition-transform transform hover:scale-125"
+          className=" h-32 object-contain transition-transform hover:scale-125"
         />
         <div className="flex justify-end">
           <h2 className="text-2xl -rotate-45">{category}</h2>

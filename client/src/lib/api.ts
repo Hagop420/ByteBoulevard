@@ -31,6 +31,11 @@ export async function foodMenuItemsId(foodId: number): Promise<FoodMenu> {
 
 // Getting the drinks
 
+export async function fetchDrinksId(drinkId: number): Promise<FoodMenu> {
+  const res = await fetch(`/api/SoftDrinks${drinkId}`);
+  if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+  return await res.json();
+}
 export async function fetchDrinks(): Promise<FoodMenu[]> {
   const res = await fetch('/api/SoftDrinks');
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);

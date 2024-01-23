@@ -1,11 +1,12 @@
 // FILE IMPORT'S
 import { ChangeEvent } from 'react';
+import { useState } from 'react';
 import { FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/tailwind_linking.css';
 import '../css/in_n_out_wall.css';
 import '../css/searchGlass.css';
-// import { ChooseDrinks } from './ChooseDrink';
+import { BsFillSunFill, BsMoonFill, BsCheck } from 'react-icons/bs';
 
 type Food = {
   currFood: FoodMenu[];
@@ -120,14 +121,33 @@ type InputSearchProp = {
 };
 
 export function FilteringMenuItemsInput({ inputSearch }: InputSearchProp) {
+  const [theme, setTheme] = useState('light');
+
+  const handleThemeSwitch = () => {
+    const html = document.querySelector('html');
+    if (theme === 'light') {
+      html?.classList.add('dark');
+      setTheme('dark');
+    } else {
+      html?.classList.remove('dark');
+      setTheme('light');
+    }
+  };
   return (
-    <div className="flex m-5 md:m-8">
-      <input
-        onChange={inputSearch}
-        className="search form-control placeholder:italic placeholder:text-slate-400 placeholder:relative placeholder:left-6 placeholder:text-red-700	inputTop"
-        placeholder="Enter item..."
-      />
-    </div>
+    <>
+      <button
+        onClick={handleThemeSwitch}
+        className="p-4 relative bg-green-50 text-black rounded-fill w-12 h-12 flex text-8xl justify-center items-center">
+        {theme === 'light' ? <BsFillSunFill /> : <BsMoonFill />}
+      </button>
+      <div className="flex m-5 md:m-8">
+        <input
+          onChange={inputSearch}
+          className="search form-control placeholder:italic placeholder:text-slate-400 placeholder:relative placeholder:left-6 placeholder:text-red-700	inputTop"
+          placeholder="Enter item..."
+        />
+      </div>
+    </>
   );
 }
 
