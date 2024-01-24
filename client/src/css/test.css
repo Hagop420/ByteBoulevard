@@ -31,3 +31,11 @@ option {
 [data-theme='night'] .DARK {
   color: #000;
 }
+
+[data-theme='night'] .DRYL {
+  background: yellow !important;
+}
+
+[data-theme='retro'] .TEXT_BACKGROUND {
+  color: #000 !important;
+}

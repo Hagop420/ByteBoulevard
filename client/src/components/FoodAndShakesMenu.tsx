@@ -19,6 +19,28 @@ type Food = {
 export function FoodAndMilkShakesMenu({ currFood }: Food) {
   const { addingItemsToCart, removingItemsFromCart } = useCart();
 
+  async function handleAddingItemsToCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`Current menu is undefined`);
+    try {
+      const addCartItems = await addingItemsToCart(currMenu.foodId);
+
+      JSON.stringify(addCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    try {
+      const removeCartItems = await removingItemsFromCart(currMenu.foodId);
+
+      JSON.stringify(removeCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-between">
@@ -29,14 +51,14 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
             </Link>
             <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
               <span
-                onClick={removingItemsFromCart}
-                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+                onClick={() => handleRemovingItemsFromCart(burgs)}
+                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600">
                 ➖
               </span>{' '}
               {burgs.name}{' '}
               <span
-                onClick={addingItemsToCart}
-                className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+                onClick={() => handleAddingItemsToCart(burgs)}
+                className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-green-600">
                 ➕
               </span>
             </span>
@@ -59,6 +81,32 @@ type FriesProp = {
 // fries map
 
 export function LoadFriesItem({ currFries }: FriesProp) {
+  // add to cart
+
+  const { addingItemsToCart, removingItemsFromCart } = useCart();
+
+  async function handleAddingItemsToCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`Current menu is undefined`);
+    try {
+      const addCartItems = await addingItemsToCart(currMenu.foodId);
+
+      JSON.stringify(addCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    try {
+      const removeCartItems = await removingItemsFromCart(currMenu.foodId);
+
+      JSON.stringify(removeCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+  // cart end
   return (
     <>
       <div className="flex justify-around m-10">
@@ -68,11 +116,15 @@ export function LoadFriesItem({ currFries }: FriesProp) {
               <img src={fries.imageUrl} alt={fries.name} />
             </Link>
             <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
-              <span className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+              <span
+                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600"
+                onClick={() => handleRemovingItemsFromCart(fries)}>
                 ➖
               </span>{' '}
               {fries.name}{' '}
-              <span className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+              <span
+                className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-green-600"
+                onClick={() => handleAddingItemsToCart(fries)}>
                 ➕
               </span>
             </span>
@@ -95,6 +147,32 @@ type ShakesProp = {
 };
 
 export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
+  // add to cart
+
+  const { addingItemsToCart, removingItemsFromCart } = useCart();
+
+  async function handleAddingItemsToCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`Current menu is undefined`);
+    try {
+      const addCartItems = await addingItemsToCart(currMenu.foodId);
+
+      JSON.stringify(addCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    try {
+      const removeCartItems = await removingItemsFromCart(currMenu.foodId);
+
+      JSON.stringify(removeCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+  // cart end
   return (
     <>
       <div className="flex justify-between m-9">
@@ -104,11 +182,15 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
               <img src={shakes.imageUrl} alt={shakes.name} />
             </Link>
             <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
-              <span className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+              <span
+                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600"
+                onClick={() => handleRemovingItemsFromCart(shakes)}>
                 ➖
               </span>{' '}
               {shakes.name}{' '}
-              <span className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer">
+              <span
+                className="hover:bg-teal-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-green-600"
+                onClick={() => handleAddingItemsToCart(shakes)}>
                 ➕
               </span>
             </span>

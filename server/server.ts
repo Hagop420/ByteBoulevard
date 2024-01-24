@@ -237,11 +237,12 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 
 // CART ITEMS INCREMENTATION CODE
 
-app.get('/api/Carts', async (req, res) => {
-  const dataCartSql = `SELECT * from "Carts" where userId = $1`;
-  const result = await db.query(dataCartSql);
+app.get('/api/Carts', authMiddleware, async (req, res) => {
+  const dataCartSql = `SELECT * from "Carts" where "userId" = $1`;
+  const params = [req.user?.userId];
+  const result = await db.query(dataCartSql, params);
   const rows = result.rows;
-  res.json(result);
+  res.json(rows);
 });
 
 app.post('/api/Carts/add', authMiddleware, async (req, res, next) => {
@@ -263,17 +264,24 @@ app.post('/api/Carts/add', authMiddleware, async (req, res, next) => {
         where "userId" = $1 and "foodId" = $2
         RETURNING *
   `;
+    const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
     // Querying into the Foods table
     const params = [req.user?.userId, req.body.foodId];
     const callingSelect = await db.query(selectCartItems, params);
     if (callingSelect.rowCount === 0) {
       const paramsCall = [req.user?.userId, req.body.foodId, 1];
       const dataBaseEntry = await db.query(userIdCartAddSqlData, paramsCall);
-      res.json(dataBaseEntry.rows[0]);
+      const selectAllCart = await db.query(selectAllCartItemSql, [
+        req.user?.userId,
+      ]);
+      res.json(selectAllCart.rows);
     } else {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(updateCartsSql, paramsCall);
-      res.json(dataBaseEntry.rows[0]);
+      const selectAllCart = await db.query(selectAllCartItemSql, [
+        req.user?.userId,
+      ]);
+      res.json(selectAllCart.rows);
     }
   } catch (err) {
     next(err);
@@ -289,6 +297,8 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
         RETURNING *
 
   `;
+
+    const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
 
     // DELETE CART ITEMS
     const deleteCartItem = `
@@ -308,11 +318,17 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
     if (quantity === 1) {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(deleteCartItem, paramsCall);
-      res.json(dataBaseEntry.rows[0]);
+      const selectAllCart = await db.query(selectAllCartItemSql, [
+        req.user?.userId,
+      ]);
+      res.json(selectAllCart.rows);
     } else {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(userIdCartRemoveSqlData, paramsCall);
-      res.json(dataBaseEntry.rows[0]);
+      const selectAllCart = await db.query(selectAllCartItemSql, [
+        req.user?.userId,
+      ]);
+      res.json(selectAllCart.rows);
     }
 
     //   const userIdCartAddSqlData = `

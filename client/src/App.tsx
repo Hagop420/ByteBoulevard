@@ -8,38 +8,51 @@ import { ChooseDrinks } from './components/ChooseDrink';
 import { OrderConfirmation } from './components/Order_confirmation';
 import { SignUpForm } from './components/SignUp';
 import { SignInForm } from './components/SignIn';
-import { type FoodMenu } from './lib/api';
+import {
+  fetchAddToCart,
+  fetchRemoveFromCart,
+  fetchCartItems,
+  type FoodMenu,
+  CartItem,
+} from './lib/api';
+import { CartProvider } from './components/CartProvider';
+import { NotFoundPage } from './components/NotFoundPage';
 
 const tokenKey = 'react-context-jwt';
 
 export default function App() {
-  const [cartItems, setCartItems] = useState<FoodMenu[]>();
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  async function fetchingTheCartItems() {
-    const fetchingCartItems = await fetch('/api/Carts');
-    const awaitedCartData = await fetchingCartItems.json();
-    setCartItems(awaitedCartData);
+  async function addingItemsToCart(foodId: number) {
+    const addItemToCartFetched = await fetchAddToCart(foodId);
+    setCartItems(addItemToCartFetched);
   }
 
-  async function addingItemsToCart() {
-    const addItemToCartFetched = await fetch('/api/Carts/add', {
-      method: 'POST',
-      body: 'application/json',
-    });
-    const itemsAddingToCartJSON = await addItemToCartFetched.json();
+  async function removingItemsFromCart(foodId: number) {
+    const removeItemFromCartFetched = await fetchRemoveFromCart(foodId);
+    setCartItems(removeItemFromCartFetched);
   }
 
-  async function reomovingItemFromCart() {
-    const RemoveItemFromCartFetched = await fetch('/api/Carts/remove', {
-      method: 'DELETE',
-      body: 'application/json',
-    });
-    const itemsRemovingFromCartJSON = await RemoveItemFromCartFetched.json();
-  }
+  useEffect(() => {
+    async function getCart() {
+      try {
+        const cartItems = await fetchCartItems();
+        setCartItems(cartItems);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getCart();
+  }, []);
 
-  useEffect(() => {});
+  const cartContext = {
+    cartItems,
+    addingItemsToCart,
+    removingItemsFromCart,
+  };
+
   return (
-    <>
+    <CartProvider value={cartContext}>
       <Routes>
         <Route index element={<IntroScreen />} />
         <Route path="/menu" element={<MenuPageWrap />} />
@@ -48,7 +61,8 @@ export default function App() {
         <Route path="product/:foodId" element={<MenuDetails />} />
         <Route path="drinks/" element={<ChooseDrinks />} />
         <Route path="order_conformation/" element={<OrderConfirmation />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </>
+    </CartProvider>
   );
 }

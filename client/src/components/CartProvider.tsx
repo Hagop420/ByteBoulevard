@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { FoodMenu } from '../lib/api';
+import { CartItem, FoodMenu } from '../lib/api';
 
 type CartContextValues = {
-  cartItems: FoodMenu[];
-  addingItemsToCart: () => Promise<void>;
-  removingItemsFromCart: () => Promise<void>;
+  cartItems: CartItem[];
+  addingItemsToCart: (foodId: number) => Promise<void>;
+  removingItemsFromCart: (foodId: number) => Promise<void>;
 };
 
 export const CartContext = createContext<CartContextValues>({
