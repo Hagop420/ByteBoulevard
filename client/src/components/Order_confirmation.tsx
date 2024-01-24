@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchFoodMenuItems, type CartItem } from '../lib/api';
+import { fetchFoodMenuItems, type CartItem, FoodMenu } from '../lib/api';
 
 export function OrderConfirmation() {
   // THEME STATE
@@ -9,8 +9,7 @@ export function OrderConfirmation() {
 
   // ARRAY STATE FOR JOINED METHOD
 
-  const [CartsContainingFoodItems, setCartsContainingFoodItems] =
-    useState<FoodMenu>();
+  const [joinCrtFood, setjoinCrtFood] = useState<CartItem[]>();
 
   // THEME from daisyUI effects and function
 
@@ -21,8 +20,6 @@ export function OrderConfirmation() {
       setTheme('retro'); //light
     }
   }
-
-  console.log(setCartsContainingFoodItems);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -62,6 +59,14 @@ export function OrderConfirmation() {
 
       <div className="flex h-screen">
         <h1 className="capitalize">Order summary</h1>
+      </div>
+
+      <div>
+        {joinCrtFood?.map((cartJoin, index) => (
+          <div>
+            <img src={cartJoin.quantity} alt="" />
+          </div>
+        ))}
       </div>
     </>
   );

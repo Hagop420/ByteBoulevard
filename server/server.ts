@@ -369,20 +369,21 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
 
 // FOOD TABLE JOINING
 
-app.get('/api/Food', async (req, res, next) => {
+app.get('/api/joinCartsWithFood/', async (req, res, next) => {
   try {
     const joiningTableSql = `
     SELECT *
-    from "Food"
-      join "Carts" using ("userId")
+    from "Carts"
+    join "Food" using ("foodId")
+
   `;
     // Querying the Foods Table/Joined with the Carts
-    const joiningTables = await db.query(joiningTableSql);
 
-    const queryResult = joiningTables.rows;
-    // Calling it with json
+    const callingSelect = await db.query(joiningTableSql);
 
-    res.status(200).json(queryResult);
+    //  QUERYING TO Carts table(maybe)
+
+    res.json(callingSelect.rows);
   } catch (err) {
     next(err);
   }
