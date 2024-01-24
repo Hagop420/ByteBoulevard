@@ -11,6 +11,7 @@ import {
   errorMiddleware,
 } from './lib/index.js';
 import { FoodMenu } from '.././client/src/lib/api.js';
+import { nextTick } from 'node:process';
 
 type User = {
   userId: number;
@@ -361,6 +362,27 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
     //   const paramsCall = [req.user?.userId, req.body.foodId];
     //   const dataBaseEntry = await db.query(deleteCartItem, paramsCall);
     //   res.json(dataBaseEntry.rows[0]);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// FOOD TABLE JOINING
+
+app.get('/api/Food', async (req, res, next) => {
+  try {
+    const joiningTableSql = `
+    SELECT *
+    from "Food"
+      join "Carts" using ("userId")
+  `;
+    // Querying the Foods Table/Joined with the Carts
+    const joiningTables = await db.query(joiningTableSql);
+
+    const queryResult = joiningTables.rows;
+    // Calling it with json
+
+    res.status(200).json(queryResult);
   } catch (err) {
     next(err);
   }

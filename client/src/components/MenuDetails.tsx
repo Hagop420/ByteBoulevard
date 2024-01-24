@@ -50,7 +50,7 @@ export function MenuDetails() {
         setCurrMenuItem(product);
       } catch (err) {
         setError(err);
-        // navigate('/not-found')
+        navigate('/not-found');
       } finally {
         setIsLoading(false);
       }
