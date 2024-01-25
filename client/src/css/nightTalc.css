@@ -5,3 +5,11 @@
 [data-theme='night'] .BLBL {
   color: #fff !important;
 }
+
+[data-theme='night'] .BLB {
+  color: #000 !important;
+}
+
+[data-theme='night'] .WHWH {
+  background-color: #fff !important;
+}

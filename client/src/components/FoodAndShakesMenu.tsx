@@ -324,7 +324,7 @@ export function NextPageButton() {
   return (
     <div className="flex justify-end m-5 md:m-8 ">
       <Link to="/drinks">
-        <button className="hover:transition-background hover:duration-2000 ease-in-out bg-amber-300 hover:bg-gradient-to-r hover:from-yellow-500 hover:via-black-100 hover:to-yellow-500 text-black hover:text-black py-2 px-4 rounded-md btn DM">
+        <button className="hover:transition-background btn hover:duration-2000 ease-in-out bg-amber-300 hover:bg-gradient-to-r hover:from-yellow-500 hover:via-black-100 hover:to-yellow-500 text-black hover:text-black py-2 px-4 rounded-md btn DM">
           <span className="DMBL">Next page ➜</span>
         </button>
       </Link>

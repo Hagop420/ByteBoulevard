@@ -5,7 +5,7 @@ import { useCart } from './useCart';
 import { Link } from 'react-router-dom';
 import '../css/nightTalc.css';
 import { countItems, countPrice, toDollars } from '../lib/toDollars';
-import '../img/noFoodDisplayed.png';
+import noFoodDisplayed from '../img/noFoodDisplayed.png';
 
 export function OrderConfirmation() {
   // THEME STATE
@@ -35,6 +35,8 @@ export function OrderConfirmation() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
+  const retNaNItemsZero = '../img/noFoodDisplayed.png';
+
   const { cartItems, removingItemsFromCart, removeItemCompletely, btnPulse } =
     useCart();
 
@@ -43,8 +45,17 @@ export function OrderConfirmation() {
   if (cartItems.length === 0) {
     return (
       <>
+        <div className="flex m-5">
+          <Link to="/menu">
+            <span className="relative flex h-3 top-2 w-3 WHITE_ANIM">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black WHITE_ANIM opacity-75 hover:animation-none"></span>
+              <span className="relative WHITE_ANIM inline-flex rounded-full h-3 w-3 bg-black"></span>
+            </span>
+            <button className="btn text-black WHWH BLB">Back to menu</button>
+          </Link>
+        </div>
         {/* Light and dark mode component rendering */}
-        <div className="flex mb-3">
+        <div className="flex mb-3 justify-end">
           <label className="swap swap-rotate">
             {/* this hidden checkbox controls the state */}
             <input
@@ -79,10 +90,7 @@ export function OrderConfirmation() {
             <div className="flex justify-center rotate-6 text-7xl">🛒</div>
           </div>
         </div>
-        <img
-          src="https://www.models-resource.com/resources/big_icons/22/21883.png?updated=1666214627"
-          alt="Krusty_Krab"
-        />
+        <img src={noFoodDisplayed} alt="Krusty_Krab" />
       </>
     );
   }
@@ -124,11 +132,15 @@ export function OrderConfirmation() {
 
       {/* IMAGES INSIDE THE CART */}
 
-      <div className="grid grid-rows-2 grid-flow-col gap-10">
+      <div className="grid grid-rows-3 grid-flow-col gap-10">
         {cartItems?.map((joinedFoodArr, index) => (
           <div key={joinedFoodArr.foodId}>
             <Link to={`/product/${joinedFoodArr.foodId}`}>
-              <img src={joinedFoodArr.imageUrl} alt="" className="h-56" />
+              <img
+                src={joinedFoodArr.imageUrl}
+                alt=""
+                className="h-56 object-contain"
+              />
             </Link>
             <div className="m-4 text-start text-black">
               <p className="BLBL">{joinedFoodArr.name}</p>
