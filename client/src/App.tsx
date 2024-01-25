@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './css/App.css';
 import { IntroScreen } from './components/IntroScreen';
 import { MenuPageWrap } from './components/MenuPageWrap';
@@ -51,6 +51,7 @@ export default function App() {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem('token')) return;
     async function getCart() {
       try {
         const cartItems = await fetchCartItems();

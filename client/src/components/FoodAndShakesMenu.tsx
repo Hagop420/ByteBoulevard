@@ -2,7 +2,7 @@
 import { ChangeEvent, useEffect } from 'react';
 import { useState } from 'react';
 import { FoodMenu } from '../lib/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/tailwind_linking.css';
 import '../css/in_n_out_wall.css';
 import '../css/searchGlass.css';
@@ -18,9 +18,15 @@ type Food = {
 };
 
 export function FoodAndMilkShakesMenu({ currFood }: Food) {
+  const navigate = useNavigate();
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
+    if (!localStorage.getItem('token')) {
+      alert(`To purchase a ${currMenu.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
     if (!currMenu) throw new Error(`Current menu is undefined`);
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
@@ -34,7 +40,24 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
     }
   }
 
+  // IF THE USER IS NOT SIGNED IN GO BACK TO THE SIGN UP/IN page
+
+  // function ifLoginJWTNaN(currJWT: FoodMenu) {
+  //   if (!localStorage.getItem('token')) {
+  //     alert(
+  //       `To purchase ${currJWT.name} you must be signed in.`
+  //     );
+  //   }
+  // }
+
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    // const navigate = useNavigate();
+
+    if (!localStorage.getItem('token')) {
+      alert(`To remove a ${currMenu.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
     if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
       alert(`${currMenu.name} is not in cart`);
@@ -97,12 +120,16 @@ export function LoadFriesItem({ currFries }: FriesProp) {
 
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
+  const navigate = useNavigate();
+
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
-    if (!currMenu) throw new Error(`Current menu is undefined`);
-    if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
-      alert(`${currMenu.name} is not in cart`);
+    if (!localStorage.getItem('token')) {
+      alert(`To purchase an order of ${currMenu.name} you must be signed in.`);
+      // navigate('/signIn');
       return;
     }
+    if (!currMenu) throw new Error(`Current menu is undefined`);
+
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
       if (currMenu) {
@@ -115,6 +142,13 @@ export function LoadFriesItem({ currFries }: FriesProp) {
   }
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    // const navigate = useNavigate();
+
+    if (!localStorage.getItem('token')) {
+      alert(`To remove an order of ${currMenu.name} you must be signed in.`);
+      navigate('/signIn');
+      return;
+    }
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
     if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
       alert(`${currMenu.name} is not in cart`);
@@ -175,7 +209,15 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
 
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
+  const navigate = useNavigate();
+
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
+    if (!localStorage.getItem('token')) {
+      alert(`To purchase a ${currMenu.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
+
     if (!currMenu) throw new Error(`Current menu is undefined`);
 
     try {
@@ -192,6 +234,13 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
   }
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
+    // const navigate = useNavigate();
+
+    if (!localStorage.getItem('token')) {
+      alert(`To remove a ${currMenu.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
     if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
       alert(`${currMenu.name} is not in cart`);
