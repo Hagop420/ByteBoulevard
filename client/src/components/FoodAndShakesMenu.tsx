@@ -20,7 +20,7 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!localStorage.getItem('token')) {
       alert(`To purchase a ${currMenu.name} you must be signed in.`);
-      // navigate('/signIn');
+      navigate('/signIn');
       return;
     }
     if (!currMenu) throw new Error(`Current menu is undefined`);
