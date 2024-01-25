@@ -18,13 +18,8 @@ export function MenuPageWrap() {
   // shakes state
   const [currShakes, setCurrShakes] = useState<FoodMenu[]>([]);
 
-  const [error, setError] = useState<unknown>();
-
+  // input state
   const [currInput, setCurrInput] = useState('');
-
-  // Filtering through my menu item's using state hook
-
-  const [menuFilter, setMenuFilter] = useState<FoodMenu[]>([]);
 
   const matchedFood = currFood.filter((burgers) =>
     burgers.name.toLocaleLowerCase().includes(currInput.toLocaleLowerCase())
@@ -45,7 +40,7 @@ export function MenuPageWrap() {
 
         setCurrFood(menuFoodItems);
       } catch (err) {
-        setError(err);
+        alert(err);
       }
     }
     loadFoodMenuItems();
@@ -62,7 +57,7 @@ export function MenuPageWrap() {
         const friesItems = await friesMenuItems.json();
         setCurrFry(friesItems);
       } catch (err) {
-        setError(err);
+        alert(err);
       }
     }
     loadShakeItems();
@@ -79,26 +74,10 @@ export function MenuPageWrap() {
         const menuShakeItems = await shakeMenuItems.json();
         setCurrShakes(menuShakeItems);
       } catch (err) {
-        setError(err);
+        alert(err);
       }
     }
     loadShakeItems();
-  }, []);
-
-  useEffect(() => {
-    async function gettingBurgersAndShakesMenuItems() {
-      try {
-        const allBurgsAndShakesPulled = await fetch('/api/allMenuItems');
-        if (!allBurgsAndShakesPulled.ok)
-          throw new Error(`Fetch error ${allBurgsAndShakesPulled.status}`);
-        const menuItemsMealsAndCreamyDelights =
-          await allBurgsAndShakesPulled.json();
-        setMenuFilter(menuItemsMealsAndCreamyDelights);
-      } catch (err) {
-        setError(err);
-      }
-    }
-    gettingBurgersAndShakesMenuItems();
   }, []);
 
   return (

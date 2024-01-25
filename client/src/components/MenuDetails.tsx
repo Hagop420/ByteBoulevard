@@ -17,9 +17,7 @@ export function MenuDetails() {
   const [error, setError] = useState<unknown>();
 
   // FUNCTIONALLITY FOR LIGHT AND DARK MODE
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'retro'
-  );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -28,10 +26,9 @@ export function MenuDetails() {
       setTheme('retro'); //light
     }
   }
-
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
+    const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 

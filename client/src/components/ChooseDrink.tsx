@@ -21,9 +21,7 @@ export function ChooseDrinks() {
   // const [currSelectValue, setCurrSelectedValue] = useState<any>();
 
   // THEME STATE
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'retro'
-  );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
   const [currDrink, setCurrDrink] = useState<FoodMenu[]>();
   const [error, setError] = useState<unknown>();
@@ -42,7 +40,7 @@ export function ChooseDrinks() {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
+    const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 

@@ -7,9 +7,7 @@ import '../css/nightTalc.css';
 import { countPrice, toDollars } from '../lib/toDollars';
 
 export function ThankYouForYourOrder() {
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'retro'
-  );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -21,7 +19,7 @@ export function ThankYouForYourOrder() {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
+    const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 

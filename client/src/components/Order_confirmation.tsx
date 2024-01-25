@@ -7,9 +7,7 @@ import noFoodDisplayed from '../img/noFoodDisplayed.png';
 
 export function OrderConfirmation() {
   // THEME STATE
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'retro'
-  );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
   // button pulsing animation state
   const scaledBtn =
@@ -29,7 +27,7 @@ export function OrderConfirmation() {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
+    const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 

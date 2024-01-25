@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import '../css/introScreen.css';
 
 export const IntroScreen = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? localStorage.getItem('theme') : 'retro'
-  );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -17,7 +15,7 @@ export const IntroScreen = () => {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    const localTheme = localStorage.getItem('theme');
+    const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
