@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { CartItem, FoodMenu } from '../lib/api';
+import { CartItem } from '../lib/api';
 
 type CartContextValues = {
   cartItems: CartItem[];

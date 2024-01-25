@@ -1,7 +1,6 @@
 import { type FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/background_sign_in.css';
-import { BsFillSunFill, BsMoonFill, BsCheck } from 'react-icons/bs';
 /**
  * Form that signs in a user.
  */

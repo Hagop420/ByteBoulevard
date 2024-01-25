@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './css/App.css';
 import { IntroScreen } from './components/IntroScreen';
 import { MenuPageWrap } from './components/MenuPageWrap';
@@ -13,15 +13,11 @@ import {
   fetchAddToCart,
   fetchRemoveFromCart,
   fetchCartItems,
-  type FoodMenu,
   CartItem,
   fetchRemoveEntireImgFormCart,
 } from './lib/api';
 import { CartProvider } from './components/CartProvider';
 import { NotFoundPage } from './components/NotFoundPage';
-import { useCart } from './components/useCart';
-
-const tokenKey = 'react-context-jwt';
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);

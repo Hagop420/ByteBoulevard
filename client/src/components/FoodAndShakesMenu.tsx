@@ -6,19 +6,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../css/tailwind_linking.css';
 import '../css/in_n_out_wall.css';
 import '../css/searchGlass.css';
-import { BsFillSunFill, BsMoonFill, BsCheck } from 'react-icons/bs';
-import { LightAndDarkToggle } from './LightDarkMode';
 import { FaHome } from 'react-icons/fa';
 import { useCart } from './useCart';
-import { add } from 'husky';
-import { isTemplateExpression } from 'typescript';
 
 type Food = {
   currFood: FoodMenu[];
 };
 
 export function FoodAndMilkShakesMenu({ currFood }: Food) {
-  const navigate = useNavigate();
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
@@ -209,8 +204,6 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
 
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
-  const navigate = useNavigate();
-
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!localStorage.getItem('token')) {
       alert(`To purchase a ${currMenu.name} you must be signed in.`);
@@ -315,10 +308,6 @@ export function FilteringMenuItemsInput({ inputSearch }: InputSearchProp) {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const exitBtn = {
-    padding: '10px 40px',
-    borderRadius: '.3rem',
-  };
   return (
     <>
       {/* Light and dark mode component rendering */}

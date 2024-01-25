@@ -1,6 +1,4 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
-import { fetchFoodMenuItems, type CartItem, FoodMenu } from '../lib/api';
 import { useCart } from './useCart';
 import { Link } from 'react-router-dom';
 import '../css/nightTalc.css';
@@ -35,10 +33,7 @@ export function OrderConfirmation() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const retNaNItemsZero = '../img/noFoodDisplayed.png';
-
-  const { cartItems, removingItemsFromCart, removeItemCompletely, btnPulse } =
-    useCart();
+  const { cartItems, removeItemCompletely, btnPulse } = useCart();
 
   // REMOVING FROM CART FUNCTION
 
@@ -133,7 +128,7 @@ export function OrderConfirmation() {
       {/* IMAGES INSIDE THE CART */}
 
       <div className="grid grid-rows-3 grid-flow-col gap-10">
-        {cartItems?.map((joinedFoodArr, index) => (
+        {cartItems?.map((joinedFoodArr) => (
           <div key={joinedFoodArr.foodId}>
             <Link to={`/product/${joinedFoodArr.foodId}`}>
               <img

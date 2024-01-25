@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, createContext } from 'react';
-import { fetchDrinks, foodMenuItemsId, type FoodMenu } from '../lib/api';
+import { fetchDrinks, type FoodMenu } from '../lib/api';
 import { Link } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
@@ -136,18 +136,8 @@ export function ChooseDrinks() {
 
   // LIGHT/DARK MODE
 
-  const {
-    foodId,
-    name,
-    description,
-    imageUrl,
-    background,
-    notice,
-    price,
-    category,
-  } = currDrinkItem ?? {};
+  const { foodId, name, imageUrl, background } = currDrinkItem ?? {};
   const bkg = background;
-  const clr = bkg;
 
   return (
     <>

@@ -35,11 +35,6 @@ export function MenuDetails() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const exitBtn = {
-    padding: '10px 40px',
-    borderRadius: '.3rem',
-  };
-
   // LIGHT/DARK MODE END
 
   // menu startingRenderEffect
