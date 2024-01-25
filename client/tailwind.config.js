@@ -100,6 +100,12 @@ export default {
         out: 'ease-out', // Custom timing function for "out" transition
         'in-out': 'ease-in-out', // Custom timing function for "in-out" transition
       },
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-5deg)' },
+          '50%': { transform: 'rotate(5deg)' },
+        },
+      },
       backgroundSize: {
         auto: 'auto',
         cover: 'cover',

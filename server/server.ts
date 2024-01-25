@@ -238,10 +238,17 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 
 // CART ITEMS INCREMENTATION CODE
 
+const joiningTableSql = `
+    SELECT *
+    from "Carts"
+    join "Food" using ("foodId") where "userId" = $1
+
+  `;
+
 app.get('/api/Carts', authMiddleware, async (req, res) => {
-  const dataCartSql = `SELECT * from "Carts" where "userId" = $1`;
+  // const dataCartSql = `SELECT * from "Carts" where "userId" = $1`;
   const params = [req.user?.userId];
-  const result = await db.query(dataCartSql, params);
+  const result = await db.query(joiningTableSql, params);
   const rows = result.rows;
   res.json(rows);
 });
@@ -265,23 +272,19 @@ app.post('/api/Carts/add', authMiddleware, async (req, res, next) => {
         where "userId" = $1 and "foodId" = $2
         RETURNING *
   `;
-    const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
+    // const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
     // Querying into the Foods table
     const params = [req.user?.userId, req.body.foodId];
     const callingSelect = await db.query(selectCartItems, params);
     if (callingSelect.rowCount === 0) {
       const paramsCall = [req.user?.userId, req.body.foodId, 1];
       const dataBaseEntry = await db.query(userIdCartAddSqlData, paramsCall);
-      const selectAllCart = await db.query(selectAllCartItemSql, [
-        req.user?.userId,
-      ]);
+      const selectAllCart = await db.query(joiningTableSql, [req.user?.userId]);
       res.json(selectAllCart.rows);
     } else {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(updateCartsSql, paramsCall);
-      const selectAllCart = await db.query(selectAllCartItemSql, [
-        req.user?.userId,
-      ]);
+      const selectAllCart = await db.query(joiningTableSql, [req.user?.userId]);
       res.json(selectAllCart.rows);
     }
   } catch (err) {
@@ -299,7 +302,7 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
 
   `;
 
-    const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
+    // const selectAllCartItemSql = `SELECT * from "Carts" where "userId" = $1`;
 
     // DELETE CART ITEMS
     const deleteCartItem = `
@@ -319,16 +322,12 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
     if (quantity === 1) {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(deleteCartItem, paramsCall);
-      const selectAllCart = await db.query(selectAllCartItemSql, [
-        req.user?.userId,
-      ]);
+      const selectAllCart = await db.query(joiningTableSql, [req.user?.userId]);
       res.json(selectAllCart.rows);
     } else {
       const paramsCall = [req.user?.userId, req.body.foodId];
       const dataBaseEntry = await db.query(userIdCartRemoveSqlData, paramsCall);
-      const selectAllCart = await db.query(selectAllCartItemSql, [
-        req.user?.userId,
-      ]);
+      const selectAllCart = await db.query(joiningTableSql, [req.user?.userId]);
       res.json(selectAllCart.rows);
     }
 
@@ -367,27 +366,32 @@ app.delete('/api/Carts/remove', authMiddleware, async (req, res, next) => {
   }
 });
 
-// FOOD TABLE JOINING
+// whole cart image removed one at a time if the remove button is clicked
 
-app.get('/api/joinCartsWithFood/', async (req, res, next) => {
-  try {
-    const joiningTableSql = `
-    SELECT *
-    from "Carts"
-    join "Food" using ("foodId")
+app.delete(
+  '/api/Carts/removeCartImage',
+  authMiddleware,
+  async (req, res, next) => {
+    try {
+      const deleteFromCart = `
 
-  `;
-    // Querying the Foods Table/Joined with the Carts
+   DELETE from "Carts"
+      where "userId" = $1 and "foodId" = $2
+        RETURNING *
 
-    const callingSelect = await db.query(joiningTableSql);
+   `;
 
-    //  QUERYING TO Carts table(maybe)
-
-    res.json(callingSelect.rows);
-  } catch (err) {
-    next(err);
+      const params = [req.user?.userId, req.body.foodId];
+      const callingSelect = await db.query(deleteFromCart, params);
+      const selectAllCart = await db.query(joiningTableSql, [req.user?.userId]);
+      res.json(selectAllCart.rows);
+    } catch (err) {
+      next(err);
+    }
   }
-});
+);
+
+// FOOD TABLE JOINING
 
 app.use(defaultMiddleware(reactStaticDir));
 

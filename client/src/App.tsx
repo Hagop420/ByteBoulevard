@@ -14,14 +14,18 @@ import {
   fetchCartItems,
   type FoodMenu,
   CartItem,
+  fetchRemoveEntireImgFormCart,
 } from './lib/api';
 import { CartProvider } from './components/CartProvider';
 import { NotFoundPage } from './components/NotFoundPage';
+import { useCart } from './components/useCart';
 
 const tokenKey = 'react-context-jwt';
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const [btnPulse, setBtnPulse] = useState(false);
 
   async function addingItemsToCart(foodId: number) {
     const addItemToCartFetched = await fetchAddToCart(foodId);
@@ -29,8 +33,20 @@ export default function App() {
   }
 
   async function removingItemsFromCart(foodId: number) {
+    setBtnPulse(true);
     const removeItemFromCartFetched = await fetchRemoveFromCart(foodId);
     setCartItems(removeItemFromCartFetched);
+    setBtnPulse(false);
+    console.log(`In the app: ${btnPulse}`);
+  }
+  async function removeItemCompletely(foodId: number) {
+    setBtnPulse(true);
+    const removeItemFromCartFetched = await fetchRemoveEntireImgFormCart(
+      foodId
+    );
+    setCartItems(removeItemFromCartFetched);
+    setBtnPulse(false);
+    console.log(`In the app: ${btnPulse}`);
   }
 
   useEffect(() => {
@@ -49,6 +65,8 @@ export default function App() {
     cartItems,
     addingItemsToCart,
     removingItemsFromCart,
+    removeItemCompletely,
+    btnPulse,
   };
 
   return (

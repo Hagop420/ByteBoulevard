@@ -11,18 +11,22 @@ import { LightAndDarkToggle } from './LightDarkMode';
 import { FaHome } from 'react-icons/fa';
 import { useCart } from './useCart';
 import { add } from 'husky';
+import { isTemplateExpression } from 'typescript';
 
 type Food = {
   currFood: FoodMenu[];
 };
 
 export function FoodAndMilkShakesMenu({ currFood }: Food) {
-  const { addingItemsToCart, removingItemsFromCart } = useCart();
+  const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`Current menu is undefined`);
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
+      if (currMenu) {
+        alert(`${currMenu.name} added to cart!`);
+      }
 
       JSON.stringify(addCartItems);
     } catch (err) {
@@ -32,8 +36,16 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
+      alert(`${currMenu.name} is not in cart`);
+      return;
+    }
     try {
       const removeCartItems = await removingItemsFromCart(currMenu.foodId);
+
+      if (currMenu) {
+        alert(`${currMenu.name} Removed from cart`);
+      }
 
       JSON.stringify(removeCartItems);
     } catch (err) {
@@ -52,7 +64,7 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
             <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
               <span
                 onClick={() => handleRemovingItemsFromCart(burgs)}
-                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600">
+                className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-green-600">
                 ➖
               </span>{' '}
               {burgs.name}{' '}
@@ -83,13 +95,19 @@ type FriesProp = {
 export function LoadFriesItem({ currFries }: FriesProp) {
   // add to cart
 
-  const { addingItemsToCart, removingItemsFromCart } = useCart();
+  const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`Current menu is undefined`);
+    if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
+      alert(`${currMenu.name} is not in cart`);
+      return;
+    }
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
-
+      if (currMenu) {
+        alert(`${currMenu.name} added to cart`);
+      }
       JSON.stringify(addCartItems);
     } catch (err) {
       alert(err);
@@ -98,9 +116,15 @@ export function LoadFriesItem({ currFries }: FriesProp) {
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
+      alert(`${currMenu.name} is not in cart`);
+      return;
+    }
     try {
       const removeCartItems = await removingItemsFromCart(currMenu.foodId);
-
+      if (currMenu) {
+        alert(`${currMenu.name} removed from cart`);
+      }
       JSON.stringify(removeCartItems);
     } catch (err) {
       alert(err);
@@ -149,12 +173,17 @@ type ShakesProp = {
 export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
   // add to cart
 
-  const { addingItemsToCart, removingItemsFromCart } = useCart();
+  const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`Current menu is undefined`);
+
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
+
+      if (currMenu) {
+        alert(`${currMenu.name} added to cart`);
+      }
 
       JSON.stringify(addCartItems);
     } catch (err) {
@@ -164,9 +193,15 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
+    if (!cartItems.find((item) => item.foodId === currMenu.foodId)) {
+      alert(`${currMenu.name} is not in cart`);
+      return;
+    }
     try {
       const removeCartItems = await removingItemsFromCart(currMenu.foodId);
-
+      if (currMenu) {
+        alert(`${currMenu.name} removed from cart`);
+      }
       JSON.stringify(removeCartItems);
     } catch (err) {
       alert(err);
@@ -268,7 +303,7 @@ export function FilteringMenuItemsInput({ inputSearch }: InputSearchProp) {
 
       {/* HOME PAGE */}
       <Link to="/">
-        <div className="flex text-black justify-start float-right text-4xl HME">
+        <div className="flex text-black justify-start float-right text-4xl hover:text-zinc-800 HME">
           <FaHome />
         </div>
       </Link>

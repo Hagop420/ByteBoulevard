@@ -18,7 +18,7 @@ export type Auth = {
   token: string;
 };
 
-export type CartItem = {
+export type CartItem = FoodMenu & {
   userId: number;
   foodId: number;
   quantity: number;
@@ -97,6 +97,27 @@ export async function fetchAddToCart(foodId: number) {
 
 export async function fetchRemoveFromCart(foodId: number) {
   const removeItemFromCartFetched = await fetch('/api/Carts/remove', {
+    method: 'DELETE',
+    body: JSON.stringify({ foodId: foodId }),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+
+  if (!removeItemFromCartFetched.ok) {
+    throw new Error(
+      `Cannot remove CartItems: ${removeItemFromCartFetched.status}`
+    );
+  }
+  const awaitedCartData = await removeItemFromCartFetched.json();
+  return awaitedCartData;
+}
+
+// REMOVING THE ENTIRE IMAGE FROM CART IF THE REMOVE BUTTON IS CLICKED
+
+export async function fetchRemoveEntireImgFormCart(foodId: number) {
+  const removeItemFromCartFetched = await fetch('/api/Carts/removeCartImage', {
     method: 'DELETE',
     body: JSON.stringify({ foodId: foodId }),
     headers: {

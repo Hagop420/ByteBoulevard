@@ -12,3 +12,12 @@ export function countItems(cart: CartItem[]): number {
   }
   return counterOrigin;
 }
+
+export function countPrice(cart: CartItem[]): number {
+  let counterOrigin = 0;
+
+  for (let i = 0; i < cart.length; i += 1) {
+    counterOrigin += cart[i].price * cart[i].quantity;
+  }
+  return counterOrigin;
+}
