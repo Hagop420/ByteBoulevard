@@ -6,6 +6,7 @@ import { MenuPageWrap } from './components/MenuPageWrap';
 import { MenuDetails } from './components/MenuDetails';
 import { ChooseDrinks } from './components/ChooseDrink';
 import { OrderConfirmation } from './components/Order_confirmation';
+import { ThankYouForYourOrder } from './components/Thank_you_for_your_order';
 import { SignUpForm } from './components/SignUp';
 import { SignInForm } from './components/SignIn';
 import {
@@ -79,6 +80,10 @@ export default function App() {
         <Route path="product/:foodId" element={<MenuDetails />} />
         <Route path="drinks/" element={<ChooseDrinks />} />
         <Route path="order_conformation/" element={<OrderConfirmation />} />
+        <Route
+          path="thanks_for_your_order"
+          element={<ThankYouForYourOrder />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </CartProvider>

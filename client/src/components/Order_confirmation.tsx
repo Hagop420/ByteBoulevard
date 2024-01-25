@@ -73,7 +73,7 @@ export function OrderConfirmation() {
         {/* end Light and dark mode section */}
 
         {/* // nothing inside of cart function */}
-        <div className="text-4xl text-black NaNTtl font-bold">
+        <div className="text-4xl text-black BLBL font-bold">
           <div>
             No Items in cart
             <div className="flex justify-center rotate-6 text-7xl">🛒</div>
@@ -149,11 +149,13 @@ export function OrderConfirmation() {
         </p>
       </div>
 
-      <button className="flex justify-end float-end">
-        Checkout
-        <div className={`ml-1${btnPulse ? scaledBtn : ''}`}>🍔</div>
-        <span className="flex">{countItems(cartItems)}</span>
-      </button>
+      <Link to="/thanks_for_your_order">
+        <button className="flex justify-end float-end">
+          Checkout
+          <div className={`ml-1${btnPulse ? scaledBtn : ''}`}>🍔</div>
+          <span className="flex">{countItems(cartItems)}</span>
+        </button>
+      </Link>
     </>
   );
 }
