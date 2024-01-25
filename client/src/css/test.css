@@ -39,3 +39,11 @@ option {
 [data-theme='retro'] .TEXT_BACKGROUND {
   color: #000 !important;
 }
+
+[data-theme='night'] .BTN_NIGHT {
+  background-color: #fff !important;
+}
+
+[data-theme='retro'] .WH {
+  color: #fff !important;
+}

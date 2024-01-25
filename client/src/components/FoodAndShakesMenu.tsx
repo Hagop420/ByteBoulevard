@@ -14,6 +14,7 @@ type Food = {
 };
 
 export function FoodAndMilkShakesMenu({ currFood }: Food) {
+  const navigate = useNavigate();
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
@@ -50,7 +51,7 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
 
     if (!localStorage.getItem('token')) {
       alert(`To remove a ${currMenu.name} you must be signed in.`);
-      // navigate('/signIn');
+      navigate('/signIn');
       return;
     }
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);
@@ -111,16 +112,15 @@ type FriesProp = {
 // fries map
 
 export function LoadFriesItem({ currFries }: FriesProp) {
+  const navigate = useNavigate();
   // add to cart
 
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
-  const navigate = useNavigate();
-
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!localStorage.getItem('token')) {
       alert(`To purchase an order of ${currMenu.name} you must be signed in.`);
-      // navigate('/signIn');
+      navigate('/signIn');
       return;
     }
     if (!currMenu) throw new Error(`Current menu is undefined`);
@@ -137,8 +137,6 @@ export function LoadFriesItem({ currFries }: FriesProp) {
   }
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
-    // const navigate = useNavigate();
-
     if (!localStorage.getItem('token')) {
       alert(`To remove an order of ${currMenu.name} you must be signed in.`);
       navigate('/signIn');
@@ -201,13 +199,14 @@ type ShakesProp = {
 
 export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
   // add to cart
+  const navigate = useNavigate();
 
   const { cartItems, addingItemsToCart, removingItemsFromCart } = useCart();
 
   async function handleAddingItemsToCart(currMenu: FoodMenu) {
     if (!localStorage.getItem('token')) {
       alert(`To purchase a ${currMenu.name} you must be signed in.`);
-      // navigate('/signIn');
+      navigate('/signIn');
       return;
     }
 
@@ -227,11 +226,9 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
   }
 
   async function handleRemovingItemsFromCart(currMenu: FoodMenu) {
-    // const navigate = useNavigate();
-
     if (!localStorage.getItem('token')) {
       alert(`To remove a ${currMenu.name} you must be signed in.`);
-      // navigate('/signIn');
+      navigate('/signIn');
       return;
     }
     if (!currMenu) throw new Error(`CurrDrinkItem is undefined`);

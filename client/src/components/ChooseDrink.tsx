@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent, createContext } from 'react';
 import { fetchDrinks, type FoodMenu } from '../lib/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/test.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useCart } from './useCart';
@@ -25,6 +25,8 @@ export function ChooseDrinks() {
 
   const [currDrink, setCurrDrink] = useState<FoodMenu[]>();
   const [error, setError] = useState<unknown>();
+
+  const navigate = useNavigate();
 
   // navigating between drinks functionallity
 
@@ -51,7 +53,7 @@ export function ChooseDrinks() {
         setCurrDrink(product);
       } catch (err) {
         setError(err);
-        // navigate('/not-found')
+        navigate('/not-found');
       }
     }
     loadFoodMenuDetails();
@@ -65,6 +67,11 @@ export function ChooseDrinks() {
   }
 
   async function handleAddingItemsToCart() {
+    if (!localStorage.getItem('token')) {
+      alert(`To purchase ${currDrinkItem?.name} you must be signed in`);
+      navigate('/signIn');
+      return;
+    }
     if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
     try {
       const addCartItems = await addingItemsToCart(currDrinkItem.foodId);
@@ -76,7 +83,16 @@ export function ChooseDrinks() {
   }
 
   async function handleRemovingItemsFromCart() {
+    if (!localStorage.getItem('token')) {
+      alert(`To remove ${currDrinkItem?.name} you must be signed in`);
+      navigate('/signIn');
+      return;
+    }
     if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
+    if (!cartItems.find((item) => item.foodId === currDrinkItem?.foodId)) {
+      alert(`${currDrinkItem?.name} is not in cart`);
+      return;
+    }
     try {
       const removeCartItems = await removingItemsFromCart(currDrinkItem.foodId);
 
@@ -227,7 +243,7 @@ export function ChooseDrinks() {
 
       <Link to="/order_conformation">
         <div className="flex flex-end justify-end mt-20 items-center">
-          <button className="bg-white text-black">
+          <button className="bg-black BTN_NIGHT text-black WH">
             View Cart
             <span className="relative bottom-1">🛒</span>
             <div className="bg-black relative top-1 right-1 rad flex m-auto justify-center items-center float-end text-white text-center">
