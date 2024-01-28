@@ -29,6 +29,7 @@ export function SignInForm() {
       }
       const { token } = await res.json();
       localStorage.setItem('token', token);
+
       navigate('/');
     } catch (err) {
       alert(`Error signing in: ${err}`);

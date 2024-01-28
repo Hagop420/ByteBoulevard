@@ -47,7 +47,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem('token')) return;
+    // if (!localStorage.getItem('token')) return;
     async function getCart() {
       try {
         const cartItems = await fetchCartItems();

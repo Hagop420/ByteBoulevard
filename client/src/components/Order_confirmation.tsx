@@ -6,6 +6,9 @@ import { countItems, countPrice, toDollars } from '../lib/toDollars';
 import noFoodDisplayed from '../img/noFoodDisplayed.png';
 
 export function OrderConfirmation() {
+  // cart st.
+  // const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
+
   // THEME STATE
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
@@ -31,7 +34,36 @@ export function OrderConfirmation() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const { cartItems, removeItemCompletely, btnPulse } = useCart();
+  const {
+    cartItems,
+
+    removeItemCompletely,
+    btnPulse,
+  } = useCart();
+
+  // add to cart
+
+  // async function handleRemovingItemsFromCart() {
+  //   if (!localStorage.getItem('token')) {
+  //     alert(`To remove ${currDrinkItem?.name} you must be signed in`);
+  //     navigate('/signIn');
+  //     return;
+  //   }
+  //   if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
+  //   if (!cartItems.find((item) => item.foodId === currDrinkItem?.foodId)) {
+  //     alert(`${currDrinkItem?.name} is not in cart`);
+  //     return;
+  //   }
+  //   try {
+  //     const removeCartItems = await removingItemsFromCart(currDrinkItem.foodId);
+
+  //     JSON.stringify(removeCartItems);
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // }
+
+  // add end
 
   // REMOVING FROM CART FUNCTION
 
@@ -127,14 +159,23 @@ export function OrderConfirmation() {
 
       <div className="grid grid-rows-3 grid-flow-col gap-10">
         {cartItems?.map((joinedFoodArr) => (
-          <div key={joinedFoodArr.foodId}>
-            <Link to={`/product/${joinedFoodArr.foodId}`}>
-              <img
-                src={joinedFoodArr.imageUrl}
-                alt=""
-                className="h-56 object-contain"
-              />
-            </Link>
+          <div
+            className="flex justify-center items-center"
+            key={joinedFoodArr.foodId}>
+            {/* <span
+              // onClick={handleAddingItemsToCart}
+              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-2 px-2 rounded-full">
+              ➕
+            </span> */}
+            <div>
+              <Link to={`/product/${joinedFoodArr.foodId}`}>
+                <img
+                  src={joinedFoodArr.imageUrl}
+                  alt=""
+                  className="h-56 object-contain"
+                />
+              </Link>
+            </div>
             <div className="m-4 text-start text-black">
               <p className="BLBL">{joinedFoodArr.name}</p>
               <p className="BLBL">Quantity: {joinedFoodArr.quantity}</p>
@@ -145,6 +186,12 @@ export function OrderConfirmation() {
                 Remove
               </p>
             </div>
+            {/* <span
+              // onClick={handleAddingItemsToCart}
+              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-2 px-2 rounded-full"
+              onClick={handleRemovingItemsFromCart}>
+              ➖
+            </span> */}
           </div>
         ))}
       </div>

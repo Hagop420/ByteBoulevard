@@ -70,7 +70,7 @@ export function SignUpForm() {
               disabled={isLoading}
               type="submit"
               className="bg-fuchsia-400 text-black font-bold w-1/4">
-              Sign In
+              Sign Up
             </button>
           </div>
         </div>
