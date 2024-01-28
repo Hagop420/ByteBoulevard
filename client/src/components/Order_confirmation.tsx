@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import '../css/nightTalc.css';
 import { countItems, countPrice, toDollars } from '../lib/toDollars';
 import noFoodDisplayed from '../img/noFoodDisplayed.png';
+// import { FoodMenu } from '../lib/api';
 
 export function OrderConfirmation() {
-  // cart st.
   // const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
+  // cart st.
 
   // THEME STATE
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
@@ -34,19 +35,14 @@ export function OrderConfirmation() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const {
-    cartItems,
-
-    removeItemCompletely,
-    btnPulse,
-  } = useCart();
+  const { cartItems, removeItemCompletely, btnPulse } = useCart();
 
   // add to cart
 
   // async function handleRemovingItemsFromCart() {
   //   if (!localStorage.getItem('token')) {
   //     alert(`To remove ${currDrinkItem?.name} you must be signed in`);
-  //     navigate('/signIn');
+  //     // navigate('/signIn');
   //     return;
   //   }
   //   if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
