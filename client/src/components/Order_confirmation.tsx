@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import '../css/nightTalc.css';
 import { countItems, countPrice, toDollars } from '../lib/toDollars';
 import noFoodDisplayed from '../img/noFoodDisplayed.png';
-// import { FoodMenu } from '../lib/api';
+import { type FoodMenu } from '../lib/api';
 
 export function OrderConfirmation() {
-  // const [currDrinkItem, setCurrDrinkItem] = useState<FoodMenu>();
+  // const [currConfo, setCurrConfo] = useState<FoodMenu>();
   // cart st.
 
   // THEME STATE
@@ -35,31 +35,69 @@ export function OrderConfirmation() {
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
 
-  const { cartItems, removeItemCompletely, btnPulse } = useCart();
+  const {
+    cartItems,
+    addingItemsToCart,
+    removeItemCompletely,
+    removingItemsFromCart,
+    btnPulse,
+  } = useCart();
 
-  // add to cart
+  // remove 1 from cart
 
-  // async function handleRemovingItemsFromCart() {
-  //   if (!localStorage.getItem('token')) {
-  //     alert(`To remove ${currDrinkItem?.name} you must be signed in`);
-  //     // navigate('/signIn');
-  //     return;
-  //   }
-  //   if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
-  //   if (!cartItems.find((item) => item.foodId === currDrinkItem?.foodId)) {
-  //     alert(`${currDrinkItem?.name} is not in cart`);
-  //     return;
-  //   }
-  //   try {
-  //     const removeCartItems = await removingItemsFromCart(currDrinkItem.foodId);
+  async function handleRemovingItemsFromCart(currConformation: FoodMenu) {
+    // const navigate = useNavigate();
 
-  //     JSON.stringify(removeCartItems);
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // }
+    if (!localStorage.getItem('token')) {
+      alert(`To remove a ${currConformation.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
+    if (!currConformation) throw new Error(`Conformation item is undefined`);
 
-  // add end
+    try {
+      const removeCartItems = await removingItemsFromCart(
+        currConformation.foodId
+      );
+
+      if (currConformation) {
+        alert(`1 ${currConformation.name} Removed from cart`);
+      }
+
+      JSON.stringify(removeCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  // remove 1 end
+
+  // remove 1 from cart
+
+  async function handleAddingItemsFromCart(currConformation: FoodMenu) {
+    // const navigate = useNavigate();
+
+    if (!localStorage.getItem('token')) {
+      alert(`To add a ${currConformation.name} you must be signed in.`);
+      // navigate('/signIn');
+      return;
+    }
+    if (!currConformation) throw new Error(`Conformation item is undefined`);
+
+    try {
+      const removeCartItems = await addingItemsToCart(currConformation.foodId);
+
+      if (currConformation) {
+        alert(`1 ${currConformation.name} added to cart`);
+      }
+
+      JSON.stringify(removeCartItems);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
+  // remove 1 end
 
   // REMOVING FROM CART FUNCTION
 
@@ -158,11 +196,15 @@ export function OrderConfirmation() {
           <div
             className="flex justify-center items-center"
             key={joinedFoodArr.foodId}>
-            {/* <span
-              // onClick={handleAddingItemsToCart}
-              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-2 px-2 rounded-full">
+            <span
+              className={`ml-1${
+                btnPulse
+                  ? scaledBtn
+                  : 'transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-black font-bold py-4 px-4 rounded-full NIGHT'
+              }`}
+              onClick={() => handleAddingItemsFromCart(joinedFoodArr)}>
               ➕
-            </span> */}
+            </span>
             <div>
               <Link to={`/product/${joinedFoodArr.foodId}`}>
                 <img
@@ -177,17 +219,16 @@ export function OrderConfirmation() {
               <p className="BLBL">Quantity: {joinedFoodArr.quantity}</p>
               <p className="BLBL">Price: {toDollars(joinedFoodArr.price)}</p>
               <p
-                className="underline bg-orange-300 w-20 rounded text-center  font-bold remBtn border-0 btn-outline hover:cursor-pointer hover:opacity-90 hover: text-slate-800 hover:bg-slate-200 NIGHT"
+                className="underline bg-orange-300 w-20 rounded text-center font-bold remBtn border-0 btn-outline hover:cursor-pointer hover:opacity-90 hover: text-slate-800 hover:bg-slate-200 NIGHT"
                 onClick={() => removeItemCompletely(joinedFoodArr.foodId)}>
                 Remove
               </p>
             </div>
-            {/* <span
-              // onClick={handleAddingItemsToCart}
-              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-white font-bold py-2 px-2 rounded-full"
-              onClick={handleRemovingItemsFromCart}>
+            <span
+              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-black font-bold py-4 px-4 rounded-full NIGHT"
+              onClick={() => handleRemovingItemsFromCart(joinedFoodArr)}>
               ➖
-            </span> */}
+            </span>
           </div>
         ))}
       </div>
@@ -198,7 +239,7 @@ export function OrderConfirmation() {
       </div>
 
       <Link to="/thanks_for_your_order">
-        <button className="flex justify-end float-end">
+        <button className="flex justify-end float-end NIGHT BLB">
           Checkout
           <div className={`ml-1${btnPulse ? scaledBtn : ''}`}>🍔</div>
           <span className="flex">{countItems(cartItems)}</span>

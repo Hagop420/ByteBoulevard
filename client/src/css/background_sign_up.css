@@ -10,6 +10,13 @@
   background-size: cover;
 }
 
-.pad {
-  padding: 10px 30px;
+[data-theme='night'] .clr {
+  color: #fff;
+  background-color: #000;
+  border-radius: 0.3rem;
+  padding: 5px;
+}
+
+[data-theme='retro'] .clr {
+  color: #000;
 }

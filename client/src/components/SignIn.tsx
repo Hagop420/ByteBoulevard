@@ -13,7 +13,7 @@ export function SignInForm() {
   const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       setIsLoading(true);
       const formData = new FormData(event.currentTarget);
