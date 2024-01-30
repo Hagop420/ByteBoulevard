@@ -8,6 +8,8 @@ import '../css/background_sign_up.css';
  */
 
 export function SignUpForm() {
+  const regexPass = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
   // theme
 
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
@@ -50,8 +52,8 @@ export function SignUpForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (ifError()) return;
     if (ifUsernameError()) return;
+    if (ifError()) return;
     try {
       setIsLoading(true);
       const formData = new FormData(event.currentTarget);
@@ -61,6 +63,7 @@ export function SignUpForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       };
+
       const res = await fetch('/api/auth/sign-up', req);
       if (!res.ok) {
         throw new Error(`fetch Error ${res.status}`);
@@ -84,9 +87,14 @@ export function SignUpForm() {
     if (renderCurrPassword.length < 8) {
       isValidated('Your Password is to short.');
       isIncorrect(true);
+    } else if (!regexPass.test(password)) {
+      isValidated(`Password must contain at least one special character
+            these include !@#$%^&*()_+-=[]{};':"\\|,.<>/?`);
     } else {
-      isValidated('Strong Password.');
-      isIncorrect(false);
+      if (regexPass.test(password)) {
+        isValidated('Strong Password.');
+        isIncorrect(false);
+      }
     }
 
     // reset password to 0 if the length of the pass is 0
@@ -103,6 +111,9 @@ export function SignUpForm() {
 
     if (renderUsername.length < 8) {
       isUserReq('Your username is to short.');
+      setIsU(true);
+    } else if (renderUsername.length > 15) {
+      isUserReq('Your username is to long.');
       setIsU(true);
     } else {
       isUserReq('Strong username.');
@@ -140,7 +151,12 @@ export function SignUpForm() {
       alert('Password is to short');
       return true;
       // navigate('/signUp');
+    } else if (!regexPass.test(password)) {
+      alert(`Password must contain at least one special character
+            these include !@#$%^&*()_+-=[]{};':"\\|,.<>/?
+      `);
     }
+
     return false;
   }
 

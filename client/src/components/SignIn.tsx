@@ -1,19 +1,39 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/background_sign_in.css';
 /**
  * Form that signs in a user.
  */
 
+type UserSavedInfo = {
+  username: string;
+  password: string;
+};
+
 export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
 
+  let passwordLocal = '';
+  let usernameLocal = '';
+
+  const localGrabber = localStorage.getItem('userInfo');
+  if (localGrabber !== null) {
+    const info: UserSavedInfo = JSON.parse(localGrabber);
+    passwordLocal = info.password;
+    usernameLocal = info.username;
+  }
+
+  // password and username saved
+  const [infoSave, setInfoSaved] = useState(false);
+
   // const [html , setHtml] = useState('html')
+
+  // Info to LS.
 
   const navigate = useNavigate();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    // event.preventDefault();
+    event.preventDefault();
     try {
       setIsLoading(true);
       const formData = new FormData(event.currentTarget);
@@ -30,13 +50,29 @@ export function SignInForm() {
       const { token } = await res.json();
       localStorage.setItem('token', token);
 
+      if (infoSave) {
+        localStorage.setItem(
+          'userInfo',
+          JSON.stringify({
+            username: userData.username,
+            password: userData.password,
+          })
+        );
+      }
+
       navigate('/');
+
+      if (localStorage.getItem('userInfo')) return;
     } catch (err) {
       alert(`Error signing in: ${err}`);
     } finally {
       setIsLoading(false);
     }
   }
+
+  // function localSaver() {
+  // localStorage.setItem('userInfo', JSON.stringify(localUserInfoSaved));
+  // }
 
   return (
     // <>
@@ -58,6 +94,7 @@ export function SignInForm() {
             type="text"
             name="username"
             id="username"
+            defaultValue={usernameLocal}
             className="m-2 rounded p-2"
             placeholder="Username.."
           />
@@ -65,6 +102,7 @@ export function SignInForm() {
             type="password"
             name="password"
             id="password"
+            defaultValue={passwordLocal}
             className="m-2 rounded p-2"
             placeholder="Password.."
           />
@@ -77,6 +115,11 @@ export function SignInForm() {
             </button>
           </div>
         </div>
+        <label className="input_customized">
+          <input type="checkbox" onClick={() => setInfoSaved(!infoSave)} />
+          <span className="checkmark"></span>
+          <span className="text-black">Remember me!</span>
+        </label>
       </form>
     </div>
     // </>
