@@ -2,13 +2,15 @@ import { type FormEvent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import '../css/background_sign_up.css';
+// import { render } from 'react-dom';
 
 /**
  * Form that registers a user.
  */
 
 export function SignUpForm() {
-  const regexPass = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  const regexUser = /_/;
+  const regexPass = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 
   // theme
 
@@ -90,6 +92,7 @@ export function SignUpForm() {
     } else if (!regexPass.test(password)) {
       isValidated(`Password must contain at least one special character
             these include !@#$%^&*()_+-=[]{};':"\\|,.<>/?`);
+      isIncorrect(true);
     } else {
       if (regexPass.test(password)) {
         isValidated('Strong Password.');
@@ -108,6 +111,15 @@ export function SignUpForm() {
   function toggleUserType(e: React.ChangeEvent<HTMLInputElement>) {
     setUsername(e.target.value);
     const renderUsername = e.target.value;
+    // if (regexUser.test(renderUsername)) {
+    //   isUserReq('Strong username.');
+    // } else {
+    //   isUserReq('Username must contain an underscore');
+    // }
+
+    if (renderUsername.length === 0) {
+      isUserReq('Username is required.');
+    }
 
     if (renderUsername.length < 8) {
       isUserReq('Your username is to short.');
@@ -115,13 +127,15 @@ export function SignUpForm() {
     } else if (renderUsername.length > 15) {
       isUserReq('Your username is to long.');
       setIsU(true);
+    } else if (regexUser.test(renderUsername)) {
+      isUserReq('Strong username.');
+      setIsU(false);
+    } else if (!regexUser.test(renderUsername)) {
+      isUserReq('Username must contain an underscore');
+      setIsU(true);
     } else {
       isUserReq('Strong username.');
       setIsU(false);
-    }
-
-    if (renderUsername.length === 0) {
-      isUserReq('Username is required.');
     }
   }
 
@@ -137,6 +151,7 @@ export function SignUpForm() {
       return true;
       // navigate('/signUp');
     }
+
     return false;
   }
 
@@ -155,10 +170,13 @@ export function SignUpForm() {
       alert(`Password must contain at least one special character
             these include !@#$%^&*()_+-=[]{};':"\\|,.<>/?
       `);
+      return true;
     }
 
     return false;
   }
+
+  // continue as a guest btn
 
   return (
     <>
@@ -240,6 +258,11 @@ export function SignUpForm() {
               }>
               {currValidate}
             </div>
+            <Link to="/">
+              <div className="flex justify-start relative top-9 underline font-bold w-36 text-black wh hover:cursor-pointer">
+                Continue as guest
+              </div>
+            </Link>
             <div className="flex justify-end">
               <button
                 disabled={isLoading}

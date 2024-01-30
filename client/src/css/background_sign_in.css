@@ -24,12 +24,22 @@ input[type='checkbox'] {
 
 .input_customized {
   display: block;
-  position: relative;
   padding-left: 26px;
   margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
   user-select: none;
+  position: absolute;
+
+  /* top: 0; */
+
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+.input_customized:hover {
+  background-color: rgb(226, 225, 225);
 }
 
 /* Hide the browser's default checkbox */
@@ -42,15 +52,6 @@ input[type='checkbox'] {
 }
 
 /* Create a custom checkbox */
-.input_customized {
-  position: absolute;
-
-  /* top: 0; */
-
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
-}
 
 .input_customized span.m-3 {
   position: relative;
@@ -74,11 +75,6 @@ input[type='checkbox'] {
   display: none;
 }
 
-/* Show the checkmark when checked */
-.input_customized input:checked ~ .checkmark::after {
-  display: block;
-}
-
 /* Style the checkmark/indicator */
 .input_customized .checkmark::after {
   left: 10px;
@@ -88,4 +84,9 @@ input[type='checkbox'] {
   border: solid rgb(0, 0, 0);
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.input_customized input:checked ~ .checkmark::after {
+  display: block;
 }
