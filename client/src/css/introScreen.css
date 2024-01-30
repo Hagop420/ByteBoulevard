@@ -11,3 +11,34 @@
 [data-theme='night'] .wrapper {
   background: rgb(223, 217, 217) !important;
 }
+
+.linkedMenuBtns {
+  margin: 0.5rem;
+}
+
+/* responsive design */
+
+@media (width <=500px) {
+  .mobile_responsive_home_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .mobile_responsive_home_page .wrapper {
+    padding: 10px;
+  }
+
+  .mobile_responsive_home_page .wrapper h1 {
+    font-size: 30px;
+  }
+
+  .mode {
+    margin: 5px;
+  }
+
+  .linkedMenuBtns {
+    margin: 1px;
+    padding: 0;
+  }
+}
