@@ -82,19 +82,19 @@ export function SignUpForm() {
   // password val.
 
   const toggleTyping = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-
     const renderCurrPassword = e.target.value;
+
+    setPassword(renderCurrPassword);
 
     if (renderCurrPassword.length < 8) {
       isValidated('Your Password is to short.');
       isIncorrect(true);
-    } else if (!regexPass.test(password)) {
+    } else if (!regexPass.test(renderCurrPassword)) {
       isValidated(`Password must contain at least one special character
             these include !@#$%^&*()_+-=[]{};':"\\|,.<>/?`);
       isIncorrect(true);
     } else {
-      if (regexPass.test(password)) {
+      if (regexPass.test(renderCurrPassword)) {
         isValidated('Strong Password.');
         isIncorrect(false);
       }
@@ -109,8 +109,8 @@ export function SignUpForm() {
   // err on the username
 
   function toggleUserType(e: React.ChangeEvent<HTMLInputElement>) {
-    setUsername(e.target.value);
     const renderUsername = e.target.value;
+    setUsername(renderUsername);
     // if (regexUser.test(renderUsername)) {
     //   isUserReq('Strong username.');
     // } else {
