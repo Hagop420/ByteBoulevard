@@ -55,7 +55,7 @@ export const IntroScreen = () => {
         </div>
         {/* end Light and dark mode section */}
 
-        <div className="wrapper">
+        <div className="wrapper container">
           <h1 className="capitalize text-black">byte boulevard</h1>
 
           <div className="flex items-center justify-center linkedMenuBtns">

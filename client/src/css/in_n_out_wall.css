@@ -3,3 +3,55 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+@media (width <=500px) {
+  .burgers {
+    display: block !important;
+  }
+
+  .burgers span {
+    margin: 10px;
+  }
+
+  .burgerCart {
+    top: -5px !important;
+  }
+
+  .fries {
+    display: block !important;
+  }
+
+  .fries span {
+    margin: 10px;
+  }
+
+  .friesCart {
+    top: -5px !important;
+  }
+
+  .shakes {
+    display: block !important;
+  }
+
+  .shakes span {
+    margin: 10px;
+  }
+
+  .shakesCart {
+    top: -5px !important;
+  }
+
+  /* main images */
+
+  img {
+    height: 200px;
+    margin: auto;
+    object-fit: contain;
+  }
+}
+
+@media (width >=500px) {
+  .fries {
+    margin: 30px !important;
+  }
+}

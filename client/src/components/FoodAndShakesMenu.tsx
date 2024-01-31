@@ -74,13 +74,13 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
 
   return (
     <>
-      <div className="flex justify-between">
+      <div className="flex justify-between burgers">
         {currFood?.map((burgs, index) => (
           <div key={index}>
             <Link to={`/product/${burgs.foodId}`}>
               <img src={burgs.imageUrl} alt={burgs.name} />
             </Link>
-            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
+            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4 burgerCart">
               <span
                 onClick={() => handleRemovingItemsFromCart(burgs)}
                 className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-green-600">
@@ -160,13 +160,13 @@ export function LoadFriesItem({ currFries }: FriesProp) {
   // cart end
   return (
     <>
-      <div className="flex justify-around m-10">
+      <div className="flex justify-around m-10 fries">
         {currFries?.map((fries, index) => (
           <div key={index} className="">
             <Link to={`/product/${fries.foodId}`}>
               <img src={fries.imageUrl} alt={fries.name} />
             </Link>
-            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
+            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4 friesCart">
               <span
                 className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600"
                 onClick={() => handleRemovingItemsFromCart(fries)}>
@@ -249,13 +249,13 @@ export function LoadShakeMenuItems({ currShakes }: ShakesProp) {
   // cart end
   return (
     <>
-      <div className="flex justify-between m-9">
+      <div className="flex justify-between m-9 shakes">
         {currShakes?.map((shakes, index) => (
           <div key={index} className="">
             <Link to={`/product/${shakes.foodId}`}>
               <img src={shakes.imageUrl} alt={shakes.name} />
             </Link>
-            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4">
+            <span className="bg-white text-black p-1 pr-1 pl-1 relative top-4 shakesCart">
               <span
                 className="hover:bg-red-700 hover:p-1 hover:pl-1 hover:cursor-pointer active:opacity-95 active:bg-red-600"
                 onClick={() => handleRemovingItemsFromCart(shakes)}>
