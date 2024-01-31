@@ -2,6 +2,7 @@
   .mobile_details {
     border-radius: 0.3rem !important;
     display: flex;
+    padding: 50px !important;
   }
 
   .sunMoon_responsive {
