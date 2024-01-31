@@ -34,7 +34,7 @@ export default function App() {
     const removeItemFromCartFetched = await fetchRemoveFromCart(foodId);
     setCartItems(removeItemFromCartFetched);
     setBtnPulse(false);
-    console.log(`In the app: ${btnPulse}`);
+    // console.log(`In the app: ${btnPulse}`);
   }
   async function removeItemCompletely(foodId: number) {
     setBtnPulse(true);
@@ -43,11 +43,11 @@ export default function App() {
     );
     setCartItems(removeItemFromCartFetched);
     setBtnPulse(false);
-    console.log(`In the app: ${btnPulse}`);
+    // console.log(`In the app: ${btnPulse}`);
   }
 
   useEffect(() => {
-    // if (!localStorage.getItem('token')) return;
+    if (!localStorage.getItem('token')) return;
     async function getCart() {
       try {
         const cartItems = await fetchCartItems();
