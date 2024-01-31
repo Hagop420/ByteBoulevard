@@ -1,12 +1,10 @@
-.wrapped {
-  /* display: flex;
-  padding: 110px; */
+@media (width <=500px) {
+  .mobile_details {
+    border-radius: 0.3rem !important;
+    display: flex;
+  }
 
-  /* width: 100vw; */
-
-  /* margin: 10px;
-  float: left;
-  position: absolute;
-  top: 0;
-  left: 15px; */
+  .sunMoon_responsive {
+    margin: 10px;
+  }
 }

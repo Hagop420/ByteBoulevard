@@ -81,7 +81,7 @@ export function MenuDetails() {
   return (
     <>
       {/* Light and dark mode component rendering */}
-      <div className="flex relative bottom-8 justify-between items-start">
+      <div className="flex relative bottom-8 justify-between items-start sunMoon_responsive">
         <label className="swap swap-rotate">
           {/* this hidden checkbox controls the state */}
           <input
@@ -110,7 +110,7 @@ export function MenuDetails() {
       {/* end Light and dark mode section */}
 
       <div
-        className="flex flex-col justify-start md:p-20"
+        className="flex flex-col justify-start md:p-20 mobile_details container"
         style={{
           backgroundImage: bkg,
           background: `${bkg}`,
