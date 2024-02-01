@@ -233,13 +233,15 @@ export function SignUpForm() {
               className="m-2 rounded p-2"
               placeholder="Username.."
             />
-            <div
-              className={
-                isU
-                  ? 'bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6'
-                  : 'bg-success text-light mb-3 p-2 m-auto rounded fs-6'
-              }>
-              {userReq}
+            <div className="flex justify-start m-0 relative right-36">
+              <div
+                className={
+                  isU
+                    ? 'bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6'
+                    : 'bg-success text-light mb-3 p-2 m-auto rounded fs-6'
+                }>
+                {userReq}
+              </div>
             </div>
             <input
               type="password"
@@ -250,13 +252,15 @@ export function SignUpForm() {
               className="m-2 rounded p-2"
               placeholder="Password.."
             />
-            <div
-              className={
-                isX
-                  ? 'bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6'
-                  : 'bg-success text-light mb-3 p-2 m-auto rounded fs-6'
-              }>
-              {currValidate}
+            <div className="flex justify-start m-0 relative right-36">
+              <div
+                className={
+                  isX
+                    ? 'bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6'
+                    : 'bg-success text-light mb-3 p-2 m-auto rounded fs-6'
+                }>
+                {currValidate}
+              </div>
             </div>
             <Link to="/">
               <div className="flex justify-start relative top-9 underline font-bold w-36 text-black wh hover:cursor-pointer">

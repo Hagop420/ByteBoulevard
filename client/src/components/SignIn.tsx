@@ -13,6 +13,13 @@ type UserSavedInfo = {
 export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
 
+  const [userReq, setUserReq] = useState<string>(
+    'Username is a required field'
+  );
+  const [passReq, setPassReq] = useState<string>(
+    'Password is a required field'
+  );
+
   let passwordLocal = '';
   let usernameLocal = '';
 
@@ -47,8 +54,11 @@ export function SignInForm() {
       };
       const res = await fetch('/api/auth/sign-in', req);
       if (!res.ok) {
-        throw new Error(`fetch Error ${res.status}`);
+        alert('User not found!');
+        return;
+        // navigate('/signIn');
       }
+
       const { token } = await res.json();
       localStorage.setItem('token', token);
 
@@ -92,6 +102,26 @@ export function SignInForm() {
     const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
+
+  // checking for the username and password has a value
+
+  function valueUserChanged(e: React.ChangeEvent<HTMLInputElement>) {
+    const usernameVal = e.target.value;
+    if (usernameVal === '') {
+      setUserReq('Username is a required field');
+    } else {
+      setUserReq('');
+    }
+  }
+
+  function userPassReq(e: React.ChangeEvent<HTMLInputElement>) {
+    const passwordVal = e.target.value;
+    if (passwordVal === '') {
+      setPassReq('Username is a required field');
+    } else {
+      setPassReq('');
+    }
+  }
 
   return (
     <>
@@ -143,17 +173,33 @@ export function SignInForm() {
               name="username"
               id="username"
               defaultValue={usernameLocal}
-              className="m-2 rounded p-2"
+              onChange={valueUserChanged}
+              className="m-2 rounded p-2 userInput"
               placeholder="Username.."
             />
+            <div className="flex justify-start m-0 relative right-28">
+              {userReq && (
+                <div className="bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6">
+                  {userReq}
+                </div>
+              )}
+            </div>
             <input
               type="password"
               name="password"
               id="password"
+              onChange={userPassReq}
               defaultValue={passwordLocal}
               className="m-2 rounded p-2"
               placeholder="Password.."
             />
+            <div className="flex justify-start m-0 relative right-28">
+              {passReq && (
+                <div className="bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6">
+                  {passReq}
+                </div>
+              )}
+            </div>
             <div className="flex justify-end">
               <button
                 disabled={isLoading}

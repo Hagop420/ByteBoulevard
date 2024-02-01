@@ -57,7 +57,7 @@ export function ChooseDrinks() {
       }
     }
     loadFoodMenuDetails();
-  }, []);
+  }, [navigate]);
 
   function handleSelection(e: ChangeEvent<HTMLSelectElement>) {
     const namesOfDrink = currDrink?.find(
@@ -185,8 +185,8 @@ export function ChooseDrinks() {
       {/* end Light and dark mode section */}
 
       <Link to="/menu">
-        <div className="flex justify-start">
-          <span className="relative flex h-3 w-3">
+        <div className="flex justify-start centered_functionallity_router">
+          <span className="relative flex h-3 w-3 mobile_hide">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full DRYL bg-black opacity-75 hover:animation-none"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-black DRYL"></span>
           </span>
@@ -212,13 +212,13 @@ export function ChooseDrinks() {
       </select>
 
       {currDrinkItem ? (
-        <div className="flex justify-around items-center m-2 h-30">
+        <div className="flex justify-around items-center m-2 h-30 mobile_drinks_section">
           <span
             onClick={handleRemovingItemsFromCart}
             className="transition duration-300 ease-in-out bg-blue-500 hover:bg-red-700 hover:cursor-pointer text-white font-bold py-4 px-6 rounded-full">
             ➖
           </span>{' '}
-          <div>
+          <div className="img_mobile">
             <img
               style={{ background: bkg, borderRadius: '10px', margin: '20px' }}
               src={imageUrl}

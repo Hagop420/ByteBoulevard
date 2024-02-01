@@ -47,3 +47,31 @@ option {
 [data-theme='retro'] .WH {
   color: #fff !important;
 }
+
+/* RESPONSIVE QUERIES */
+
+@media (width <=500px) {
+  .centered_functionallity_router {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mobile_hide {
+    display: none !important;
+  }
+
+  .mobile_drinks_section {
+    display: block !important;
+    margin: auto;
+  }
+
+  .img_mobile {
+    margin: auto !important;
+  }
+
+  .img_mobile p {
+    margin: 10px;
+  }
+}

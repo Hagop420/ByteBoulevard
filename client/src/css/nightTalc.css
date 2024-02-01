@@ -13,3 +13,13 @@
 [data-theme='night'] .WHWH {
   background-color: #fff !important;
 }
+
+@media (width <=500px) {
+  .mobile_conformation {
+    display: block !important;
+  }
+
+  .mobile_title_font {
+    font-size: 35px;
+  }
+}

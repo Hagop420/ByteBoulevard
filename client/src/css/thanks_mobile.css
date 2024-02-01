@@ -1,0 +1,11 @@
+@media (width <=500px) {
+  .mobile_grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    margin: auto;
+    text-align: center;
+  }
+
+  .mobile_grid img {
+    height: 100px !important;
+  }
+}

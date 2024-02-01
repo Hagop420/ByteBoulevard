@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { FaDollarSign } from 'react-icons/fa';
 import '../css/nightTalc.css';
+import '../css/thanks_mobile.css';
 import { countPrice, toDollars } from '../lib/toDollars';
 
 export function ThankYouForYourOrder() {
@@ -79,7 +80,7 @@ export function MappedItem() {
   const { cartItems } = useCart();
 
   return (
-    <div className="grid grid-rows-3 grid-cols-3 grid-flow-col md:grid-rows-3 md:grid-cols-1 lg:grid-rows-4">
+    <div className="grid grid-rows-3 grid-cols-3 grid-flow-col md:grid-rows-3 md:grid-cols-1 lg:grid-rows-4 mobile_grid">
       {cartItems.map((item) => (
         <div key={item.foodId} className="">
           <img

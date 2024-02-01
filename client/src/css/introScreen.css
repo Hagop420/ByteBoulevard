@@ -41,4 +41,9 @@
     margin: 1px;
     padding: 0;
   }
+
+  .mobile_menu_btn {
+    margin: 0;
+    padding: 10px;
+  }
 }

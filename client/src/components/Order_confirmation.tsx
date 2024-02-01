@@ -15,7 +15,7 @@ export function OrderConfirmation() {
 
   // button pulsing animation state
   const scaledBtn =
-    'transform scale-125 transition-transform duration-600 hover:scale-100';
+    'transform scale-125 transition-transform duration-800 hover:scale-100';
 
   // ARRAY STATE FOR JOINED METHOD
 
@@ -61,7 +61,11 @@ export function OrderConfirmation() {
       );
 
       if (currConformation) {
-        alert(`1 ${currConformation.name} Removed from cart`);
+        alert(
+          `1 ${currConformation.name} removed \n total ${
+            currConformation.name
+          } in cart: ${cartItems.map((ii) => ii.quantity - 1)}`
+        );
       }
 
       JSON.stringify(removeCartItems);
@@ -88,7 +92,11 @@ export function OrderConfirmation() {
       const removeCartItems = await addingItemsToCart(currConformation.foodId);
 
       if (currConformation) {
-        alert(`1 ${currConformation.name} added to cart`);
+        alert(
+          `1 ${currConformation.name} added to cart \n total ${
+            currConformation.name
+          } in cart: ${cartItems.map((ii) => ii.quantity + 1)}`
+        );
       }
 
       JSON.stringify(removeCartItems);
@@ -186,22 +194,20 @@ export function OrderConfirmation() {
       {/* end Light and dark mode section */}
 
       <div className="flex">
-        <h1 className="capitalize text-black BLBL">Order summary</h1>
+        <h1 className="capitalize text-black BLBL mobile_title_font">
+          Order summary
+        </h1>
       </div>
 
       {/* IMAGES INSIDE THE CART */}
 
-      <div className="grid grid-rows-3 grid-flow-col gap-10">
+      <div className="grid-rows-3 grid-flow-col gap-10 mobile_conformation">
         {cartItems?.map((joinedFoodArr) => (
           <div
             className="flex justify-center items-center"
             key={joinedFoodArr.foodId}>
             <span
-              className={`ml-1${
-                btnPulse
-                  ? scaledBtn
-                  : 'transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-black font-bold py-4 px-4 rounded-full NIGHT'
-              }`}
+              className="transition duration-300 ease-in-out bg-blue-500 hover:bg-green-400 hover:cursor-pointer text-black font-bold py-4 px-4 rounded-full NIGHT"
               onClick={() => handleAddingItemsFromCart(joinedFoodArr)}>
               ➕
             </span>
