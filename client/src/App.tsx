@@ -15,6 +15,7 @@ import {
   fetchCartItems,
   CartItem,
   fetchRemoveEntireImgFormCart,
+  deleteCartItemsWhenPurchased,
 } from './lib/api';
 import { CartProvider } from './components/CartProvider';
 import { NotFoundPage } from './components/NotFoundPage';
@@ -45,9 +46,15 @@ export default function App() {
     setBtnPulse(false);
     // console.log(`In the app: ${btnPulse}`);
   }
+  async function removeAllPreviousCartItemsPurchased() {
+    await deleteCartItemsWhenPurchased();
+    setCartItems([]);
+  }
 
   useEffect(() => {
-    if (!localStorage.getItem('token')) return;
+    if (!localStorage.getItem('token')) {
+      return;
+    }
     async function getCart() {
       try {
         const cartItems = await fetchCartItems();
@@ -64,6 +71,7 @@ export default function App() {
     addingItemsToCart,
     removingItemsFromCart,
     removeItemCompletely,
+    removeAllPreviousCartItemsPurchased,
     btnPulse,
   };
 

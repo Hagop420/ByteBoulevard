@@ -68,8 +68,10 @@ export function ChooseDrinks() {
 
   async function handleAddingItemsToCart() {
     if (!localStorage.getItem('token')) {
-      alert(`To purchase ${currDrinkItem?.name} you must be signed in`);
-      navigate('/signIn');
+      alert(
+        `To purchase a ${currDrinkItem?.name} you must be signed in or continue as guest.`
+      );
+      navigate('/signUp');
       return;
     }
     if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);
@@ -84,8 +86,10 @@ export function ChooseDrinks() {
 
   async function handleRemovingItemsFromCart() {
     if (!localStorage.getItem('token')) {
-      alert(`To remove ${currDrinkItem?.name} you must be signed in`);
-      navigate('/signIn');
+      alert(
+        `To remove a ${currDrinkItem?.name} you must be signed in or continue as guest.`
+      );
+      navigate('/signUp');
       return;
     }
     if (!currDrinkItem) throw new Error(`CurrDrinkItem is undefined`);

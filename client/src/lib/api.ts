@@ -134,3 +134,21 @@ export async function fetchRemoveEntireImgFormCart(foodId: number) {
   const awaitedCartData = await removeItemFromCartFetched.json();
   return awaitedCartData;
 }
+
+// when you click the checkout button delete the cart items from the DB
+
+export async function deleteCartItemsWhenPurchased(): Promise<FoodMenu[]> {
+  const deletingAllItemsFetch = await fetch('/api/Carts/deleteFromDB', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+
+  if (!deletingAllItemsFetch.ok) {
+    throw new Error(`Cannot remove CartItems: ${deletingAllItemsFetch.status}`);
+  }
+  const awaitedCartData = await deletingAllItemsFetch.json();
+  return awaitedCartData;
+}

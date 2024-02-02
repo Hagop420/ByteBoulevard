@@ -393,6 +393,35 @@ app.delete(
 
 // FOOD TABLE JOINING
 
+// delete the cart from LS
+
+app.delete(
+  '/api/Carts/deleteFromDB',
+  authMiddleware,
+  async (req, res, next) => {
+    try {
+      const deleteUsersPurchasedCartItemsSql = `delete from "Carts" where "userId" = $1 RETURNING *`;
+
+      const params = [req.user?.userId];
+
+      const queryTheDbWUserId = await db.query(
+        deleteUsersPurchasedCartItemsSql,
+        params
+      );
+
+      console.log(queryTheDbWUserId.rows);
+
+      res.json(queryTheDbWUserId.rows);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// continue as a guest able to purchase
+
+//
+
 app.use(defaultMiddleware(reactStaticDir));
 
 app.use(errorMiddleware);

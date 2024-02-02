@@ -106,6 +106,32 @@ export function SignUpForm() {
     }
   };
 
+  async function guestHandler() {
+    try {
+      const req = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'placeholder_',
+          password: 'placeholder_',
+        }),
+      };
+
+      const res = await fetch('/api/auth/sign-in', req);
+      if (!res.ok) {
+        alert('guest not found!');
+        return;
+      }
+
+      const { token } = await res.json();
+      localStorage.setItem('token', token);
+
+      navigate('/');
+    } catch (err) {
+      alert(err);
+    }
+  }
+
   // err on the username
 
   function toggleUserType(e: React.ChangeEvent<HTMLInputElement>) {
@@ -262,11 +288,11 @@ export function SignUpForm() {
                 {currValidate}
               </div>
             </div>
-            <Link to="/">
+            <div onClick={guestHandler}>
               <div className="flex justify-start relative top-9 underline font-bold w-36 text-black wh hover:cursor-pointer">
                 Continue as guest
               </div>
-            </Link>
+            </div>
             <div className="flex justify-end">
               <button
                 disabled={isLoading}

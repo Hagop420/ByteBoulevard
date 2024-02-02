@@ -6,9 +6,12 @@ import { FaDollarSign } from 'react-icons/fa';
 import '../css/nightTalc.css';
 import '../css/thanks_mobile.css';
 import { countPrice, toDollars } from '../lib/toDollars';
+import { FoodMenu, deleteCartItemsWhenPurchased } from '../lib/api';
 
 export function ThankYouForYourOrder() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
+
+  const [, setMenuFoodItems] = useState<FoodMenu[]>();
 
   function handleToggle(e) {
     if (e.target.checked) {
@@ -23,6 +26,19 @@ export function ThankYouForYourOrder() {
     const localTheme = localStorage.getItem('theme') ?? 'retro';
     document.querySelector('html')?.setAttribute('data-theme', localTheme);
   }, [theme]);
+
+  useEffect(() => {
+    async function deleteCartDBitems() {
+      try {
+        const fetchCartDeletion = await deleteCartItemsWhenPurchased();
+
+        setMenuFoodItems(fetchCartDeletion);
+      } catch (err) {
+        alert(err);
+      }
+    }
+    deleteCartDBitems();
+  }, []);
 
   return (
     <>
@@ -80,7 +96,7 @@ export function MappedItem() {
   const { cartItems } = useCart();
 
   return (
-    <div className="grid grid-rows-3 grid-cols-3 grid-flow-col md:grid-rows-3 md:grid-cols-1 lg:grid-rows-4 mobile_grid">
+    <div className="grid grid-rows-3 grid-cols-3 grid-flow-col mobile_grid">
       {cartItems.map((item) => (
         <div key={item.foodId} className="">
           <img

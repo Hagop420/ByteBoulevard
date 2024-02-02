@@ -44,5 +44,9 @@ insert into "Food" ("name" , "description" , "notice" , "imageUrl" , "price" , "
           ('Dr pepper' , 'Fountain drink' , 'Sodas: Crisp, effervescent, and refreshing.' , '/imgs/DrPepper.png' , 165 , 'darkred' , 'Soft drink'),
           ('7-up' , 'Fountain drink' , 'Sodas: Crisp, effervescent, and refreshing.' , '/imgs/7Up.png' , 165 , 'limegreen' , 'Soft drink' ),
           ('Root beer' , 'Fountain drink' , 'Sodas: Crisp, effervescent, and refreshing.' , '/imgs/RootBeer.png' , 165 , 'brown' , 'Soft drink'),
-          ('Pink lemonade' , 'Fountain drink' , 'Sodas: Crisp, effervescent, and refreshing.' , '/imgs/PinkLem.png' , 165 , 'linear-gradient(106.5deg, rgba(255, 215, 185, 0.91) 23%, rgba(223, 159, 247, 0.8) 93%)' , 'Soft drink'),
+          ('Pink lemonade' , 'Fountain drink' , 'Slightly sweeter and fruitier taste than regular lemonade.' , '/imgs/PinkLem.png' , 165 , 'linear-gradient(106.5deg, rgba(255, 215, 185, 0.91) 23%, rgba(223, 159, 247, 0.8) 93%)' , 'Soft drink'),
           ('Iced tea' , 'Fountain drink' , 'Sodas: Crisp, effervescent, and refreshing.' , '/imgs/icedTea.png' , 165 , 'radial-gradient(circle at 10% 50.5%, rgb(255, 107, 6) 0%, rgb(255, 1, 107) 90%)' , 'Soft drink')
+
+
+insert unto "Users"("username" , "hashedPassword")
+        values('placeholder_' , '$argon2id$v=19$m=4096,t=3,p=1$shBZQvbAOG8Bh1hJ5n/HlQ$PGJkS3BN3LaX5Ayd2wq3hivOtCRDOl38D9IMQxgOFpo')

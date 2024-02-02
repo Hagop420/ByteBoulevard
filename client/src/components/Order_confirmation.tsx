@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useCart } from './useCart';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/nightTalc.css';
 import { countItems, countPrice, toDollars } from '../lib/toDollars';
 import noFoodDisplayed from '../img/noFoodDisplayed.png';
@@ -45,12 +45,16 @@ export function OrderConfirmation() {
 
   // remove 1 from cart
 
+  const navigate = useNavigate();
+
   async function handleRemovingItemsFromCart(currConformation: FoodMenu) {
     // const navigate = useNavigate();
 
     if (!localStorage.getItem('token')) {
-      alert(`To remove a ${currConformation.name} you must be signed in.`);
-      // navigate('/signIn');
+      alert(
+        `To remove a ${currConformation.name} you must be signed in or continue as guest.`
+      );
+      navigate('/signUp');
       return;
     }
     if (!currConformation) throw new Error(`Conformation item is undefined`);
@@ -64,9 +68,17 @@ export function OrderConfirmation() {
         alert(
           `1 ${currConformation.name} removed \n total ${
             currConformation.name
-          } in cart: ${cartItems.map((ii) => ii.quantity - 1)}`
+          }'s in cart: ${cartItems.map((ii) => ii.quantity - 1)}`
         );
       }
+
+      // cartItems.map((CA) =>
+      //   CA.quantity === 1
+      //     ? `1 ${currConformation.name} removed \n total ${currConformation.name} in cart: ${CA.quantity}`
+      //     : `1 ${currConformation.name} removed \n total ${currConformation.name}'s in cart: ${CA.quantity}`
+      // );
+
+      // if()
 
       JSON.stringify(removeCartItems);
     } catch (err) {
@@ -82,8 +94,10 @@ export function OrderConfirmation() {
     // const navigate = useNavigate();
 
     if (!localStorage.getItem('token')) {
-      alert(`To add a ${currConformation.name} you must be signed in.`);
-      // navigate('/signIn');
+      alert(
+        `To remove a ${currConformation.name} you must be signed in or continue as guest.`
+      );
+      navigate('/signUp'); // navigate('/signIn');
       return;
     }
     if (!currConformation) throw new Error(`Conformation item is undefined`);
@@ -201,7 +215,7 @@ export function OrderConfirmation() {
 
       {/* IMAGES INSIDE THE CART */}
 
-      <div className="grid-rows-3 grid-flow-col gap-10 mobile_conformation">
+      <div className="grid grid-rows-3 grid-cols-3 grid-flow-col gap-10 mobile_conformation">
         {cartItems?.map((joinedFoodArr) => (
           <div
             className="flex justify-center items-center"

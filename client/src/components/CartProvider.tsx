@@ -7,6 +7,7 @@ type CartContextValues = {
   addingItemsToCart: (foodId: number) => Promise<void>;
   removingItemsFromCart: (foodId: number) => Promise<void>;
   removeItemCompletely: (foodId: number) => Promise<void>;
+  removeAllPreviousCartItemsPurchased: (foodId: number) => Promise<void>;
 };
 
 export const CartContext = createContext<CartContextValues>({
@@ -14,6 +15,7 @@ export const CartContext = createContext<CartContextValues>({
   addingItemsToCart: () => Promise.reject(),
   removingItemsFromCart: () => Promise.reject(),
   removeItemCompletely: () => Promise.reject(),
+  removeAllPreviousCartItemsPurchased: () => Promise.reject(),
   btnPulse: false,
 });
 
