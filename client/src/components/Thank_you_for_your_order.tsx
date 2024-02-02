@@ -105,7 +105,10 @@ export function MappedItem() {
             className="h-56 object-contain m-auto"
           />
           <div className="text-center m-2">
-            <p className="text-black BLBL">{item.name}</p>
+            <p className="text-black BLBL">
+              {item.quantity} {item.name}
+              {item.quantity !== 1 ? 's' : ''}
+            </p>
           </div>
         </div>
       ))}

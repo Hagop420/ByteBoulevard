@@ -65,20 +65,15 @@ export function OrderConfirmation() {
       );
 
       if (currConformation) {
+        const foodItemsFind = cartItems.find(
+          (item) => item.foodId === currConformation.foodId
+        );
         alert(
           `1 ${currConformation.name} removed \n total ${
             currConformation.name
-          }'s in cart: ${cartItems.map((ii) => ii.quantity - 1)}`
+          }'s in cart: ${foodItemsFind!.quantity - 1}`
         );
       }
-
-      // cartItems.map((CA) =>
-      //   CA.quantity === 1
-      //     ? `1 ${currConformation.name} removed \n total ${currConformation.name} in cart: ${CA.quantity}`
-      //     : `1 ${currConformation.name} removed \n total ${currConformation.name}'s in cart: ${CA.quantity}`
-      // );
-
-      // if()
 
       JSON.stringify(removeCartItems);
     } catch (err) {
@@ -106,10 +101,13 @@ export function OrderConfirmation() {
       const removeCartItems = await addingItemsToCart(currConformation.foodId);
 
       if (currConformation) {
+        const foodItemsFind = cartItems.find(
+          (item) => item.foodId === currConformation.foodId
+        );
         alert(
           `1 ${currConformation.name} added to cart \n total ${
             currConformation.name
-          } in cart: ${cartItems.map((ii) => ii.quantity + 1)}`
+          } in cart: ${foodItemsFind!.quantity + 1}`
         );
       }
 
@@ -207,15 +205,15 @@ export function OrderConfirmation() {
       </div>
       {/* end Light and dark mode section */}
 
-      <div className="flex">
-        <h1 className="capitalize text-black BLBL mobile_title_font">
+      <div className="flex justify-center">
+        <h1 className="capitalize text-center text-black BLBL mobile_title_font">
           Order summary
         </h1>
       </div>
 
       {/* IMAGES INSIDE THE CART */}
 
-      <div className="grid grid-rows-3 grid-cols-3 grid-flow-col gap-10 mobile_conformation">
+      <div className="grid grid-rows-3 grid-cols-2 grid-flow-col gap-10 mobile_conformation">
         {cartItems?.map((joinedFoodArr) => (
           <div
             className="flex justify-center items-center"
