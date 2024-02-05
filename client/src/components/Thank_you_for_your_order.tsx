@@ -6,10 +6,16 @@ import { FaDollarSign } from 'react-icons/fa';
 import '../css/nightTalc.css';
 import '../css/thanks_mobile.css';
 import { countPrice, toDollars } from '../lib/toDollars';
-import { FoodMenu, deleteCartItemsWhenPurchased } from '../lib/api';
+import { CartItem, FoodMenu, deleteCartItemsWhenPurchased } from '../lib/api';
 
 export function ThankYouForYourOrder() {
+  // let mostRecPurchased: CartItem[];
+
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
+
+  const { cartItems, removeAllPreviousCartItemsPurchased } = useCart();
+
+  const [reciet] = useState(JSON.parse(JSON.stringify(cartItems)));
 
   const [, setMenuFoodItems] = useState<FoodMenu[]>();
 
@@ -33,6 +39,9 @@ export function ThankYouForYourOrder() {
         const fetchCartDeletion = await deleteCartItemsWhenPurchased();
 
         setMenuFoodItems(fetchCartDeletion);
+        removeAllPreviousCartItemsPurchased();
+
+        // console.log(3);
       } catch (err) {
         alert(err);
       }
@@ -82,7 +91,7 @@ export function ThankYouForYourOrder() {
       <h1 className="font-bold text-black BLBL">Thank you for your order</h1>
       <p className="text-black BLBL m-5">Your preparation items:</p>
       <div>
-        <MappedItem />
+        <MappedItem mostRecPurchased={reciet} />
       </div>
 
       <div className="flex flex-col justify-center items-center">
@@ -92,12 +101,14 @@ export function ThankYouForYourOrder() {
   );
 }
 
-export function MappedItem() {
-  const { cartItems } = useCart();
+type Props = {
+  mostRecPurchased: CartItem[];
+};
 
+export function MappedItem({ mostRecPurchased }: Props) {
   return (
     <div className="grid grid-rows-3 grid-cols-3 grid-flow-col mobile_grid">
-      {cartItems.map((item) => (
+      {mostRecPurchased.map((item) => (
         <div key={item.foodId} className="">
           <img
             src={item.imageUrl}

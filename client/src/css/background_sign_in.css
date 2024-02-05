@@ -3,12 +3,12 @@
   border-radius: 25px;
 }
 
-.patties_back {
+/* .patties_back {
   background: url('https://i.pinimg.com/originals/a1/fb/e6/a1fbe6714b564e64c4af36bdda04c3ce.jpg');
   min-width: 100%;
   min-height: 100%;
   background-size: cover;
-}
+} */
 
 .pad {
   padding: 10px 30px;
