@@ -23,12 +23,19 @@ option {
 }
 
 [data-theme='night'] .select_field_styling {
-  background-color: rgb(201, 197, 197);
+  background-color: rgb(255, 187, 0);
   color: #000;
   font-weight: bold;
 }
 
 [data-theme='night'] .DARK {
+  color: yellow;
+  font-weight: bold;
+}
+
+[data-theme='retro'] .DARK {
+  background-color: orange;
+  font-weight: bold;
   color: #000;
 }
 
@@ -41,7 +48,8 @@ option {
 }
 
 [data-theme='night'] .BTN_NIGHT {
-  background-color: #fff !important;
+  background-color: orange !important;
+  font-weight: bold;
 }
 
 [data-theme='retro'] .WH {

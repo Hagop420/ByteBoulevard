@@ -357,7 +357,7 @@ export function FilteringMenuItemsInput({ inputSearch }: InputSearchProp) {
       <div className="flex m-5 md:m-8">
         <input
           onChange={inputSearch}
-          className="search form-control placeholder:italic placeholder:text-slate-400 placeholder:relative placeholder:left-6 placeholder:text-red-700	inputTop"
+          className="search form-control placeholder:italic placeholder:text-green-800-400 placeholder:relative placeholder:left-6 placeholder:text-black	inputTop"
           placeholder="Enter item..."
         />
       </div>

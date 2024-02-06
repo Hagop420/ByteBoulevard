@@ -194,7 +194,7 @@ export function ChooseDrinks() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full DRYL bg-black opacity-75 hover:animation-none"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-black DRYL"></span>
           </span>
-          <button className="bg-zinc-300 DARK">↺ Previous Page</button>
+          <button className="font-bold DARK">↺ Previous Page</button>
         </div>
       </Link>
       {/* // CHOOSING DRINK'S SELECT FORM */}

@@ -60,7 +60,7 @@ export const IntroScreen = () => {
 
           <div className="flex items-center justify-center linkedMenuBtns">
             <Link to="/menu">
-              <button className="hover:opacity-85 m-4 mobile_menu_btn text-white">
+              <button className="hover:opacity-85 bg-indigo-700 m-4 mobile_menu_btn text-white">
                 Browse menu
               </button>
             </Link>
