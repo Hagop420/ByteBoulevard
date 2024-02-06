@@ -90,7 +90,7 @@ export function OrderConfirmation() {
 
     if (!localStorage.getItem('token')) {
       alert(
-        `To remove a ${currConformation.name} you must be signed in or continue as guest.`
+        `To add a ${currConformation.name} you must be signed in or continue as guest.`
       );
       navigate('/signUp'); // navigate('/signIn');
       return;
@@ -176,6 +176,17 @@ export function OrderConfirmation() {
 
   return (
     <>
+      <div className="flex m-9">
+        <span className="relative flex h-3 w-3 mobile_hide">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full DRYL bg-black opacity-75 hover:animation-none"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-black DRYL"></span>
+        </span>
+        <Link to="/drinks">
+          <button className="BL bg-orange-400 text-black font-bold">
+            Previous page
+          </button>
+        </Link>
+      </div>
       {/* Light and dark mode component rendering */}
       <div className="flex mb-3">
         <label className="swap swap-rotate">

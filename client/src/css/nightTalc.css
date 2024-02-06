@@ -11,6 +11,12 @@
   color: #000 !important;
 }
 
+[data-theme='night'] .BL {
+  color: #000 !important;
+  background-color: yellow;
+  font-weight: bold;
+}
+
 [data-theme='night'] .WHWH {
   background-color: #fff !important;
 }
