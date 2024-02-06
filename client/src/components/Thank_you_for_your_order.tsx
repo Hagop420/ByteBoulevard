@@ -40,8 +40,6 @@ export function ThankYouForYourOrder() {
 
         setMenuFoodItems(fetchCartDeletion);
         removeAllPreviousCartItemsPurchased();
-
-        // console.log(3);
       } catch (err) {
         alert(err);
       }
@@ -95,7 +93,7 @@ export function ThankYouForYourOrder() {
       </div>
 
       <div className="flex flex-col justify-center items-center">
-        <AmountPaid />
+        <AmountPaid purchasedSum={reciet} />
       </div>
     </>
   );
@@ -127,8 +125,11 @@ export function MappedItem({ mostRecPurchased }: Props) {
   );
 }
 
-export function AmountPaid() {
-  const { cartItems } = useCart();
+type SummaryProp = {
+  purchasedSum: CartItem[];
+};
+
+export function AmountPaid({ purchasedSum }: SummaryProp) {
   return (
     <React.Fragment>
       <div className="text-green-600 text-5xl">
@@ -138,7 +139,9 @@ export function AmountPaid() {
       <span className="m-3">
         <p className="text-black BLBL">
           Amount Paid:{' '}
-          <span className="font-bold">{toDollars(countPrice(cartItems))}</span>
+          <span className="font-bold">
+            {toDollars(countPrice(purchasedSum))}
+          </span>
         </p>
       </span>
     </React.Fragment>
