@@ -250,7 +250,7 @@ export function ChooseDrinks() {
           <button className="bg-black BTN_NIGHT text-black WH">
             View Cart
             <span className="relative bottom-1">🛒</span>
-            <div className="bg-black relative top-1 right-1 rad flex m-auto justify-center items-center float-end text-white text-center">
+            <div className="bg-stone-600 relative top-1 right-1 rad flex m-auto justify-center items-center float-end text-white text-center OR">
               {countItems(cartItems)}
             </div>
           </button>

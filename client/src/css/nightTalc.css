@@ -1,9 +1,10 @@
 [data-theme='night'] .NIGHT {
-  background-color: #fff !important;
+  background-color: rgb(255, 68, 0) !important;
+  color: #fff !important;
 }
 
 [data-theme='night'] .BLBL {
-  color: #fff !important;
+  color: rgb(255, 183, 0) !important;
 }
 
 [data-theme='night'] .BLB {

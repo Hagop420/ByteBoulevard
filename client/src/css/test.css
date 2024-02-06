@@ -33,6 +33,12 @@ option {
   font-weight: bold;
 }
 
+[data-theme='retro'] .OR {
+  background-color: yellow !important;
+  color: #000 !important;
+  font-weight: bold;
+}
+
 [data-theme='retro'] .DARK {
   background-color: orange;
   font-weight: bold;

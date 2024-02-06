@@ -116,7 +116,7 @@ export function MappedItem({ mostRecPurchased }: Props) {
           <div className="text-center m-2">
             <p className="text-black BLBL">
               {item.quantity} {item.name}
-              {item.quantity !== 1 ? 's' : ''}
+              {item.quantity !== 1 ? "'s" : ''}
             </p>
           </div>
         </div>
