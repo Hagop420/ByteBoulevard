@@ -9,3 +9,9 @@
     height: 100px !important;
   }
 }
+
+@media (width <=500px) {
+  h1 {
+    font-size: 28px !important;
+  }
+}

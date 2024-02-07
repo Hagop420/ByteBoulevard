@@ -72,6 +72,10 @@ option {
     align-items: center;
   }
 
+  img {
+    margin: auto !important;
+  }
+
   .mobile_hide {
     display: none !important;
   }
@@ -79,6 +83,14 @@ option {
   .mobile_drinks_section {
     display: block !important;
     margin: auto;
+    padding: 5px;
+  }
+
+  .mobile_drinks_section span {
+    padding: 10px !important;
+    bottom: 9px;
+    position: relative;
+    margin: 20px;
   }
 
   .img_mobile {

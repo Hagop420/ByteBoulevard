@@ -177,7 +177,7 @@ export function SignInForm() {
               className="m-2 rounded p-2 userInput"
               placeholder="Username.."
             />
-            <div className="flex justify-start m-0 relative right-28">
+            <div className="flex justify-start m-0 relative right-28 mobile_req">
               {userReq && (
                 <div className="bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6">
                   {userReq}
@@ -193,7 +193,7 @@ export function SignInForm() {
               className="m-2 rounded p-2"
               placeholder="Password.."
             />
-            <div className="flex justify-start m-0 relative right-28">
+            <div className="flex justify-start m-0 relative right-28 mobile_req">
               {passReq && (
                 <div className="bg-black font-bold text-yellow-custom text-light mb-3 p-2 m-auto rounded fs-6">
                   {passReq}
@@ -218,7 +218,9 @@ export function SignInForm() {
                 onClick={() => setInfoSaved(!infoSave)}
               />
               <span className="checkmark"></span>
-              <span className="text-black">Remember Me!</span>
+              <span className="text-black mobile_checkbox_content">
+                Remember <span>Me!</span>
+              </span>
             </label>
           </div>
         </form>

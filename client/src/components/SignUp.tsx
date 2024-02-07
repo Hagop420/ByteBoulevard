@@ -259,7 +259,7 @@ export function SignUpForm() {
               className="m-2 rounded p-2"
               placeholder="Username.."
             />
-            <div className="flex justify-start m-0 relative right-36">
+            <div className="flex justify-start m-0 relative right-36 mobile_req">
               <div
                 className={
                   isU
@@ -278,7 +278,7 @@ export function SignUpForm() {
               className="m-2 rounded p-2"
               placeholder="Password.."
             />
-            <div className="flex justify-start m-0 relative right-36">
+            <div className="flex justify-start m-0 relative right-36 mobile_req">
               <div
                 className={
                   isX
@@ -289,7 +289,7 @@ export function SignUpForm() {
               </div>
             </div>
             <div onClick={guestHandler}>
-              <div className="flex justify-start relative top-9 underline font-bold w-36 text-black wh hover:cursor-pointer">
+              <div className="flex justify-start relative top-9 underline font-bold w-36 text-black wh hover:cursor-pointer guest_size">
                 Continue as guest
               </div>
             </div>

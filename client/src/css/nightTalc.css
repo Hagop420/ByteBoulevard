@@ -26,6 +26,14 @@
     display: block !important;
   }
 
+  .mobile_conformation > div {
+    height: 205px;
+  }
+
+  img.h-56 {
+    height: 150px !important;
+  }
+
   .mobile_title_font {
     font-size: 35px;
   }
