@@ -25,6 +25,7 @@ export function FoodAndMilkShakesMenu({ currFood }: Food) {
       navigate('/signUp');
       return;
     }
+    // for git
     if (!currMenu) throw new Error(`Current menu is undefined`);
     try {
       const addCartItems = await addingItemsToCart(currMenu.foodId);
