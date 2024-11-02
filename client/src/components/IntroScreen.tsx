@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/introScreen.css';
-//
 
 export const IntroScreen = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
