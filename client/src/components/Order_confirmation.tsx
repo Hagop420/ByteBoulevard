@@ -9,7 +9,7 @@ import { type FoodMenu } from '../lib/api';
 export function OrderConfirmation() {
   // const [currConfo, setCurrConfo] = useState<FoodMenu>();
   // cart st.
-  //
+
   // THEME STATE
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
 
