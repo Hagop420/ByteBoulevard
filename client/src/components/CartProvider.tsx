@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { CartItem } from '../lib/api';
-
+//
 type CartContextValues = {
   cartItems: CartItem[];
   btnPulse: boolean;
