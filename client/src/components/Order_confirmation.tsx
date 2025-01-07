@@ -12,7 +12,7 @@ export function OrderConfirmation() {
 
   // THEME STATE
   const [theme, setTheme] = useState(localStorage.getItem('theme') ?? 'retro');
-
+  //
   // button pulsing animation state
   const scaledBtn =
     'transform scale-125 transition-transform duration-800 hover:scale-100';
